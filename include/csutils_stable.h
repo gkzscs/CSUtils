@@ -1,5 +1,5 @@
-#ifndef STABLE_H
-#define STABLE_H
+#ifndef CSUTILS_STABLE_H
+#define CSUTILS_STABLE_H
 
 
 // Add C++ includes here
@@ -21,6 +21,11 @@
 #include <QRadioButton>
 #include <QGroupBox>
 #include <QToolBar>
+
+// View
+#include <QListView>
+#include <QTableView>
+#include <QTreeView>
 
 // Layout
 #include <QHBoxLayout>
@@ -91,11 +96,22 @@
 
 
 
-/**************************************** Other Includes ************************************/
-// GUI utilities
-#include <csutils.h>
-#include <cswidget.h>
-#include <csscrollarea.h>
+/**************************************** CS Utils Library ************************************/
+// Core
+#include <Core/csutils.h>
+#include <Core/csappevent.h>
+#include <Core/cscontainer.h>
+
+// Layout
+#include <Layout/cslayout.h>
+#include <Layout/cshboxlayout.h>
+#include <Layout/csvboxlayout.h>
+
+// Control
+#include <Control/cswidget.h>
+#include <Control/csline.h>
+#include <Control/csscrollarea.h>
+#include <Control/csformcard.h>
 
 // Own utilities
 //#include "controlcontainer.h"
@@ -108,7 +124,7 @@
 
 
 #endif  // __cplusplus
-#endif  // STABLE_H
+#endif  // CSUTILS_STABLE_H
 
 
 

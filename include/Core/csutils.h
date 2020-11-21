@@ -1,12 +1,6 @@
 #ifndef CSUTILS_H
 #define CSUTILS_H
 
-
-#define UNIQUE(name)    \
-    QSharedMemory sm(name);   \
-    if (sm.attach()) return -1; \
-    sm.create(1)
-
 #include <QObject>
 #include <QColor>
 #include "csutils_global.h"
@@ -14,6 +8,16 @@
 
 class QLayout;
 class QLabel;
+
+
+namespace cs
+{
+
+#define UNIQUE(name)    \
+    QSharedMemory sm(name);   \
+    if (sm.attach()) return -1; \
+    sm.create(1)
+
 
 class CSUTILS_EXPORT CSUtils : public QObject
 {
@@ -39,5 +43,6 @@ public:
 
 };
 
+}
 
 #endif // CSUTILS_H

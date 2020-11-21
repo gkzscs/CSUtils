@@ -1,32 +1,42 @@
-QT += widgets websockets svg
+QT += widgets svg
 CONFIG += c++11 precompile_header
 TEMPLATE = lib
 TARGET = csutils
 
-PRECOMPILED_HEADER += stable.h
+PRECOMPILED_HEADER += csutils_stable.h
 
 DEFINES += CSUTILS_LIB
 
 
-INCLUDEPATH += \
-    csutils
-
-
 HEADERS += \
+    Control/csformcard.h \
+    Control/csline.h \
+    Control/csscrollarea.h \
+    Control/cswidget.h \
+    Core/cscontainer.h \
+    Core/csutils.h \
+    Core/csappevent.h   \
+    Layout/cshboxlayout.h \
+    Layout/cslayout.h \
+    Layout/csvboxlayout.h \
     csutils_global.h \
-    csutils/csutils.h \
-    csutils/cswidget.h \
-    csutils/csscrollarea.h \
-    stable.h
+    csutils_stable.h
 
 
 SOURCES += \
-    csutils/csutils.cpp \
-    csutils/cswidget.cpp    \
-    csutils/csscrollarea.cpp
+    Control/csformcard.cpp \
+    Control/csline.cpp \
+    Control/csscrollarea.cpp \
+    Control/cswidget.cpp \
+    Core/cscontainer.cpp \
+    Core/csutils.cpp \
+    Core/csappevent.cpp \
+    Layout/cshboxlayout.cpp \
+    Layout/cslayout.cpp \
+    Layout/csvboxlayout.cpp
 
 
-DEBUG_DIR = $$PWD/lib_x64/Desktop_Qt_5_12_6_MSVC2017_64bit/Debug/debug
+DEBUG_DIR = $$PWD/lib_x64/Desktop_Qt_5_12_6_MinGW_32_bit/Debug/debug
 
 win32: {
     inst.files += $$DEBUG_DIR/*.dll

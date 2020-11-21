@@ -1,6 +1,9 @@
 #include "cswidget.h"
-#include "csutils.h"
+#include "Core/csutils.h"
+#include "Core/csappevent.h"
 
+namespace cs
+{
 
 CSWidget::CSWidget(QWidget *parent)
     : QWidget(parent)
@@ -16,6 +19,17 @@ CSWidget::~CSWidget()
 QPoint CSWidget::globalPos() const
 {
     return mapToGlobal(QPoint(0, 0));
+}
+
+void CSWidget::setLayout(CSLayout *layout)
+{
+    if (_layout)
+    {
+        _layout->deleteLater();
+    }
+
+    _layout = layout;
+    layout->refreshUI();
 }
 
 void CSWidget::init()
@@ -46,4 +60,13 @@ void CSWidget::paintEvent(QPaintEvent *event)
 
     // Enable style sheet
     CSUtils::enableStyleSheet(this);
+}
+
+void CSWidget::resizeEvent(QResizeEvent *event)
+{
+    Q_UNUSED(event)
+
+    if (_layout) emit CSAppEvent::instance()->resizeSignal(this, event);
+}
+
 }

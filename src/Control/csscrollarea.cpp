@@ -5,6 +5,9 @@
 #include <QDebug>
 
 
+namespace cs
+{
+
 CSScrollArea::CSScrollArea(QWidget *parent)
     : CSWidget(parent)
 {
@@ -218,7 +221,7 @@ bool CSScrollArea::isOnBar(const QPoint &point, bool isHorizontal) const
     return rect.contains(point);
 }
 
-
+}
 
 
 

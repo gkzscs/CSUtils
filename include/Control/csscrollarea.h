@@ -1,8 +1,11 @@
 #ifndef CSSCROLLAREA_H
 #define CSSCROLLAREA_H
 
-#include "cswidget.h"
+#include "Control/cswidget.h"
 
+
+namespace cs
+{
 
 class CSUTILS_EXPORT CSScrollArea : public CSWidget
 {
@@ -50,5 +53,6 @@ protected:
 
 };
 
+}
 
 #endif // CSSCROLLAREA_H
