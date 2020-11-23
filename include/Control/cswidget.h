@@ -5,6 +5,11 @@
 #include "csutils_global.h"
 
 
+namespace cs
+{   // Start of namespace `cs`
+
+class CSLayout;
+
 class CSUTILS_EXPORT CSWidget : public QWidget
 {
     Q_OBJECT
@@ -14,6 +19,8 @@ public:
     virtual ~CSWidget() override;
 
     QPoint globalPos() const;
+    void setLayout(CSLayout *lay);
+    CSLayout *layout() const;
 
 protected:
     void init();
@@ -23,7 +30,13 @@ protected:
 
 protected:
     virtual void paintEvent(QPaintEvent *event) override;
+    virtual void resizeEvent(QResizeEvent *event) override;
+
+protected:
+    CSLayout *_layout;
+
 };
 
+} // End of namespace `cs`
 
 #endif // CSWIDGET_H

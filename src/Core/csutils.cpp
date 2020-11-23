@@ -10,6 +10,9 @@
 #include <QDebug>
 
 
+namespace cs
+{   // Start of namespace `cs`
+
 void CSUtils::setColor(QWidget *wgt, const QColor &bgColor, const QColor &txtColor)
 {
     if (!wgt) return;
@@ -212,3 +215,4 @@ bool CSUtils::keyIsAlphabet(int key)
     return res;
 }
 
+}   // End of namespace `cs`

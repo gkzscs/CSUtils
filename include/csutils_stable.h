@@ -1,5 +1,5 @@
-#ifndef STABLE_H
-#define STABLE_H
+#ifndef CSUTILS_STABLE_H
+#define CSUTILS_STABLE_H
 
 
 // Add C++ includes here
@@ -92,10 +92,22 @@
 
 
 /**************************************** Other Includes ************************************/
-// GUI utilities
-#include <csutils.h>
-#include <cswidget.h>
-#include <csscrollarea.h>
+// Core
+#include <Core/csutils.h>
+#include <Core/cscontainer.h>
+
+// Control
+#include <Control/cswidget.h>
+#include <Control/csscrollarea.h>
+#include <Control/cssplitline.h>
+#include <Control/cslabelcontrol.h>
+#include <Control/cswgtcontainer.h>
+#include <Control/csformcard.h>
+
+// Layout
+#include <Layout/cslayout.h>
+#include <Layout/csvboxlayout.h>
+#include <Layout/cshboxlayout.h>
 
 // Own utilities
 //#include "controlcontainer.h"
@@ -108,7 +120,7 @@
 
 
 #endif  // __cplusplus
-#endif  // STABLE_H
+#endif  // CSUTILS_STABLE_H
 
 
 
