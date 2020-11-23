@@ -1,10 +1,16 @@
+<<<<<<< HEAD
 #ifndef CSHBoxLayout_H
 #define CSHBoxLayout_H
+=======
+#ifndef CSHBOXLAYOUT_H
+#define CSHBOXLAYOUT_H
+>>>>>>> 78105573c0b48a6f559f0788e5d1ba19a49cb013
 
 #include "Layout/cslayout.h"
 
 
 namespace cs
+<<<<<<< HEAD
 {   // Start of namespace `cs`
 
 class CSUTILS_EXPORT CSHBoxLayout : public CSLayout
@@ -21,13 +27,41 @@ protected:
     virtual void init() override;
 
     virtual void resetLayout() override;
+=======
+{
+
+class CSUTILS_EXPORT CSHBoxLayout : public CSLayout
+{
+    Q_OBJECT
+
+public:
+    CSHBoxLayout(CSWidget *wgt = nullptr);
+
+    void setSpace(int space);
+    int space() const;
+
+protected:
+    virtual void resetLayout() override;
+
+protected:
+    virtual void initMember() override;
+
+protected slots:
+    virtual void resizeSlot(QObject *s, QResizeEvent *e) override;
+>>>>>>> 78105573c0b48a6f559f0788e5d1ba19a49cb013
 
 protected:
     int _space;
 
 };
 
+<<<<<<< HEAD
 }   // End of namespace `cs`
 
 
 #endif // CSHBoxLayout_H
+=======
+}
+
+#endif // CSHBOXLAYOUT_H
+>>>>>>> 78105573c0b48a6f559f0788e5d1ba19a49cb013

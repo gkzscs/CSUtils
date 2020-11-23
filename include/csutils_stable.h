@@ -22,6 +22,11 @@
 #include <QGroupBox>
 #include <QToolBar>
 
+// View
+#include <QListView>
+#include <QTableView>
+#include <QTreeView>
+
 // Layout
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -91,6 +96,7 @@
 
 
 
+<<<<<<< HEAD:include/csutils_stable.h
 /**************************************** Other Includes ************************************/
 // Core
 #include <Core/csutils.h>
@@ -108,6 +114,24 @@
 #include <Layout/cslayout.h>
 #include <Layout/csvboxlayout.h>
 #include <Layout/cshboxlayout.h>
+=======
+/**************************************** CS Utils Library ************************************/
+// Core
+#include <Core/csutils.h>
+#include <Core/csappevent.h>
+#include <Core/cscontainer.h>
+
+// Layout
+#include <Layout/cslayout.h>
+#include <Layout/cshboxlayout.h>
+#include <Layout/csvboxlayout.h>
+
+// Control
+#include <Control/cswidget.h>
+#include <Control/csline.h>
+#include <Control/csscrollarea.h>
+#include <Control/csformcard.h>
+>>>>>>> 78105573c0b48a6f559f0788e5d1ba19a49cb013:src/stable.h
 
 // Own utilities
 //#include "controlcontainer.h"

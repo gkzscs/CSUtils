@@ -54,5 +54,4 @@ protected:
 
 }   // End of namespace `cs`
 
-
 #endif // CSSCROLLAREA_H

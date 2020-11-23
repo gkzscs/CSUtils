@@ -34,7 +34,7 @@ void CSFormCard::initMember()
     _layout = _vl;
 
     // Set object name
-    _labTitle->setObjectName("form_card_title");
+    _labTitle->setObjectName("card_title");
 }
 
 void CSFormCard::initUI()
@@ -52,5 +52,6 @@ void CSFormCard::initUI()
 }
 
 }   // End of namespace `cs`
+
 
 

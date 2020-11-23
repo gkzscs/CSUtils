@@ -1,5 +1,6 @@
 #include "cslayout.h"
-
+#include "Core/csappevent.h"
+#include "Control/cswidget.h"
 
 namespace cs
 {   // Start of namespace `cs`
@@ -21,7 +22,7 @@ CSLayout::~CSLayout()
 void CSLayout::setMargins(QMargins m)
 {
     _margins = m;
-    refresh();
+    refreshUI();
 }
 
 void CSLayout::setMargins(int left, int top, int right, int bottom)
@@ -35,40 +36,20 @@ QMargins CSLayout::margins() const
     return _margins;
 }
 
-void CSLayout::refresh()
+void CSLayout::refreshUI()
 {
-    CSContainer<QWidget>::refresh();
-}
+    // Clear layout
+    clearLayout();
 
-void CSLayout::changeSize(const QSize &newSize, const QSize &oldSize)
-{
-    Q_UNUSED(newSize)
-    Q_UNUSED(oldSize)
-
-    // To do
-}
-
-void CSLayout::init()
-{
-    if (_wgt) _wgt->setLayout(this);
-}
-
-void CSLayout::actualRefresh()
-{
-    // Clear CSLayout
-    clearLayout(_wgt);
-
-    // Reset CSLayout
+    // Reset layout
     resetLayout();
 
     // Reset container
-    _listOldItems = _listItems;
+    refreshOldItems();
 }
 
-void CSLayout::clearLayout(QWidget *wgt)
+void CSLayout::clearLayout()
 {
-    if (!wgt) return;
-
     for (auto item : _listOldItems)
     {
         if (_listItems.contains(item)) continue;
@@ -82,4 +63,43 @@ void CSLayout::resetLayout()
     // To do
 }
 
-} // End of namespace `cs`
+void CSLayout::init()
+{
+    initMember();
+    initUI();
+    initSignalSlot();
+}
+
+void CSLayout::initMember()
+{
+    _margins = QMargins(0, 0, 0, 0);
+}
+
+void CSLayout::initUI()
+{
+
+}
+
+void CSLayout::initSignalSlot()
+{
+    connect(CSAppEvent::instance(), &CSAppEvent::resizeSignal, this, &CSLayout::resizeSlot);
+}
+
+void CSLayout::refreshOldItems()
+{
+    // Clear container
+    _listOldItems.clear();
+
+    // Reset container
+    _listOldItems = _listItems;
+}
+
+void CSLayout::resizeSlot(QObject *s, QResizeEvent *e)
+{
+    Q_UNUSED(s)
+    Q_UNUSED(e)
+
+    // To do
+}
+
+}

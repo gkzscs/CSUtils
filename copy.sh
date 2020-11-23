@@ -5,6 +5,16 @@ src=`pwd`/src
 dst=`pwd`/include
 
 
+<<<<<<< HEAD
+=======
+# #!/bin/bash
+
+# #Just modify these 2 variables to change the source directory and destination directory
+# src=`pwd`/src
+# dst=`pwd`/include
+
+
+>>>>>>> 78105573c0b48a6f559f0788e5d1ba19a49cb013
 traverse_dir()
 {
 	local filepath=$1

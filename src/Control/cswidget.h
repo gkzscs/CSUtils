@@ -19,7 +19,8 @@ public:
     virtual ~CSWidget() override;
 
     QPoint globalPos() const;
-    void setLayout(CSLayout *lay);
+
+    void setLayout(CSLayout *layout);
     CSLayout *layout() const;
 
 protected:
@@ -38,5 +39,6 @@ protected:
 };
 
 } // End of namespace `cs`
+
 
 #endif // CSWIDGET_H

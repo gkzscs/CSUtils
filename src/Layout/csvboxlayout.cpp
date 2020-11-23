@@ -11,28 +11,15 @@ CSVBoxLayout::CSVBoxLayout(CSWidget *wgt)
     init();
 }
 
-void CSVBoxLayout::setSpace(int n)
+void CSVBoxLayout::setSpace(int space)
 {
-    _space = n;
-    refresh();
+    _space = space;
+    refreshUI();
 }
 
 int CSVBoxLayout::space() const
 {
     return _space;
-}
-
-void CSVBoxLayout::changeSize(const QSize &newSize, const QSize &oldSize)
-{
-    if (newSize.width() == oldSize.width()) return;
-
-    const int w = _wgt->width() - _margins.left() - _margins.right();
-    for (auto item : _listItems) item->resize(w, item->height());
-}
-
-void CSVBoxLayout::init()
-{
-    _space = 0;
 }
 
 void CSVBoxLayout::resetLayout()
@@ -55,4 +42,19 @@ void CSVBoxLayout::resetLayout()
     _wgt->resize(_wgt->width(), y-_space+_margins.bottom());
 }
 
+void CSVBoxLayout::initMember()
+{
+    _space = 6;
+}
+
+void CSVBoxLayout::resizeSlot(QObject *s, QResizeEvent *e)
+{
+    if (s != _wgt || !_wgt || e->oldSize().height() == e->size().height()) return;
+
+    const int h = e->size().height() - _margins.top() - _margins.bottom();
+    for (auto item : _listItems) item->resize(item->width(), h);
+}
+
 }   // End of namespace `cs`
+
+

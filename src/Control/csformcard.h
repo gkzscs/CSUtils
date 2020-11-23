@@ -1,16 +1,14 @@
-#ifndef CSFormCard_H
-#define CSFormCard_H
+#ifndef CSFORMCARD_H
+#define CSFORMCARD_H
 
-#include "cswgtcontainer.h"
-
-
+#include "Control/cswidget.h"
 
 namespace cs
 {   // Start of namespace `cs`
 
 class CSVBoxLayout;
 
-class CSUTILS_EXPORT CSFormCard : public CSWidget
+class CSFormCard : public CSWidget
 {
     Q_OBJECT
 
@@ -33,4 +31,5 @@ protected:
 
 }   // End of namespace `cs`
 
-#endif // CSFormCard_H
+
+#endif // CSFORMCARD_H

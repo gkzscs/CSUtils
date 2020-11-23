@@ -1,5 +1,7 @@
 #include "cscontainer.h"
-
+#include <QLabel>
+#include <QToolButton>
+#include <QComboBox>
 
 namespace cs
 {   // Start of namespace `cs`
@@ -13,7 +15,7 @@ CSContainer<T>::CSContainer()
 template <typename T>
 CSContainer<T>::~CSContainer()
 {
-    for (auto item : _listItems) dealAdd(item);
+    for (auto item : _listItems) dealRemove(item);
 
     qDeleteAll(_listItems);
     _listItems.clear();
@@ -166,25 +168,26 @@ void CSContainer<T>::init()
 template <typename T>
 void CSContainer<T>::refresh()
 {
-    const int duration = 20;
-
-    // Control the fps of refresh
-    if (!_flag)
-    {
-        _flag = true;
-        _lastRefresh.restart();
-
-        QTimer::singleShot(duration, this, &CSContainer<T>::refresh);
-        return;
-    }
-
-    if (_lastRefresh.elapsed() < duration) return;
-
-    // Call actual refresh function
     actualRefresh();
+//    const int duration = 20;
 
-    // Reset variables
-    _flag = false;
+//    // Control the fps of refresh
+//    if (!_flag)
+//    {
+//        _flag = true;
+//        _lastRefresh.restart();
+
+//        QTimer::singleShot(duration, this, &CSContainer<T>::refresh);
+//        return;
+//    }
+
+//    if (_lastRefresh.elapsed() < duration) return;
+
+//    // Call actual refresh function
+//    actualRefresh();
+
+//    // Reset variables
+//    _flag = false;
 }
 
 template <typename T>
@@ -205,24 +208,13 @@ void CSContainer<T>::dealRemove(T *item)
     Q_UNUSED(item)
 }
 
-template <typename T>
-void CSContainer<T>::clearLayout(QWidget *wgt)
-{
-    if (!wgt) return;
-
-    // Clear layout
-    for (auto kid : wgt->children())
-    {
-        auto item = qobject_cast<T *>(kid);
-        if (!item) continue;
-        item->setParent(nullptr);
-        item->setHidden(true);
-    }
-}
 
 
 /********************************* Explicit instantiate **************************************/
+template class CSContainer<QLabel>;
+template class CSContainer<QToolButton>;
 template class CSContainer<QWidget>;
+template class CSContainer<QComboBox>;
 
 
 }   // End of namespace `cs`

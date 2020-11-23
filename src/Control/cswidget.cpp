@@ -1,6 +1,7 @@
 #include "cswidget.h"
 #include "Core/csutils.h"
 #include "Layout/cslayout.h"
+#include "Core/csappevent.h"
 
 
 namespace cs
@@ -22,21 +23,15 @@ QPoint CSWidget::globalPos() const
     return mapToGlobal(QPoint(0, 0));
 }
 
-void CSWidget::setLayout(CSLayout *lay)
+void CSWidget::setLayout(CSLayout *layout)
 {
     if (_layout)
     {
-        delete _layout;
-        _layout = nullptr;
+        _layout->deleteLater();
     }
 
-    _layout = lay;
-    lay->refresh();
-}
-
-CSLayout *CSWidget::layout() const
-{
-    return _layout;
+    _layout = layout;
+    layout->refreshUI();
 }
 
 void CSWidget::init()
@@ -73,7 +68,7 @@ void CSWidget::resizeEvent(QResizeEvent *event)
 {
     Q_UNUSED(event)
 
-    if (_layout) _layout->changeSize(size(), event->oldSize());
+    if (_layout) emit CSAppEvent::instance()->resizeSignal(this, event);
 }
 
 } // End of namespace `cs`

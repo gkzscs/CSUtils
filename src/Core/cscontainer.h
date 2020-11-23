@@ -1,7 +1,7 @@
 #ifndef CSContainer_H
 #define CSContainer_H
 
-#include "Control/cswidget.h"
+#include <QObject>
 #include <QTime>
 
 
@@ -13,7 +13,7 @@ class CSUTILS_EXPORT CSContainer : public QObject
 {
 public:
     CSContainer();
-    virtual ~CSContainer();
+    virtual ~CSContainer() override;
 
     virtual bool add(T *item);
     virtual bool insert(int idx, T *item);
@@ -39,7 +39,6 @@ protected:
     virtual void actualRefresh();
     virtual void dealAdd(T *item);
     virtual void dealRemove(T *item);
-    virtual void clearLayout(QWidget *wgt);
 
 protected:
     QList<T *> _listItems;
@@ -49,5 +48,6 @@ protected:
 };
 
 }   // End of namespace `cs`
+
 
 #endif // CSContainer_H

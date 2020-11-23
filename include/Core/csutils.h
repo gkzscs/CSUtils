@@ -9,8 +9,14 @@
 class QLayout;
 class QLabel;
 
+<<<<<<< HEAD:include/Core/csutils.h
 namespace cs
 {   // Start of namespace `cs`
+=======
+
+namespace cs
+{
+>>>>>>> 78105573c0b48a6f559f0788e5d1ba19a49cb013:src/csutils/csutils.h
 
 #define UNIQUE(name)    \
     QSharedMemory sm(name);   \
@@ -42,6 +48,10 @@ public:
 
 };
 
+<<<<<<< HEAD:include/Core/csutils.h
 }   // End of namespace `cs`
+=======
+}
+>>>>>>> 78105573c0b48a6f559f0788e5d1ba19a49cb013:src/csutils/csutils.h
 
 #endif // CSUTILS_H
