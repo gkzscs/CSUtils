@@ -8,7 +8,7 @@ namespace cs
 
 class CSVBoxLayout;
 
-class CSFormCard : public CSWidget
+class CSUTILS_EXPORT CSFormCard : public CSWidget
 {
     Q_OBJECT
 

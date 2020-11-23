@@ -6,9 +6,6 @@
 namespace cs
 { // Start of namespace `cs`
 
-namespace cs
-{
-
 class CSUTILS_EXPORT CSScrollArea : public CSWidget
 {
     Q_OBJECT
@@ -55,11 +52,6 @@ protected:
 
 };
 
-<<<<<<< HEAD:include/Control/csscrollarea.h
 }   // End of namespace `cs`
-
-=======
-}
->>>>>>> 78105573c0b48a6f559f0788e5d1ba19a49cb013:src/csutils/csscrollarea.h
 
 #endif // CSSCROLLAREA_H

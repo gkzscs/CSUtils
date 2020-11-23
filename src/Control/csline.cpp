@@ -6,20 +6,20 @@
 namespace cs
 {
 
-SplitLine::SplitLine(QWidget *parent)
+CSLine::CSLine(QWidget *parent)
     : CSWidget(parent), _type(Normal)
 {
     init();
 }
 
-SplitLine::SplitLine(Type type, QWidget *parent)
+CSLine::CSLine(Type type, QWidget *parent)
     : CSWidget(parent), _type(type)
 {
     init();
 }
 
 
-void SplitLine::setType(Type type)
+void CSLine::setType(Type type)
 {
     if (type == _type) return;
     _type = type;
@@ -27,18 +27,18 @@ void SplitLine::setType(Type type)
     update();
 }
 
-SplitLine::Type SplitLine::getType() const
+CSLine::Type CSLine::getType() const
 {
     return _type;
 }
 
-void SplitLine::initUI()
+void CSLine::initUI()
 {
     resize(100, 1);
     setHidden(false);
 }
 
-void SplitLine::paintEvent(QPaintEvent *event)
+void CSLine::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event)
 
@@ -50,14 +50,14 @@ void SplitLine::paintEvent(QPaintEvent *event)
     else if (_type == CircleRect) drawCircleRect(p);
 }
 
-void SplitLine::drawNormal(QPainter &p)
+void CSLine::drawNormal(QPainter &p)
 {
     p.save();
     p.fillRect(rect(), QBrush());
     p.restore();
 }
 
-void SplitLine::drawCircleRect(QPainter &p)
+void CSLine::drawCircleRect(QPainter &p)
 {
     const int r = height()/2;
     QLine line(0, height()/2, width(), 1);
