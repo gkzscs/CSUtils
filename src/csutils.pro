@@ -36,7 +36,7 @@ SOURCES += \
     Layout/csvboxlayout.cpp
 
 
-DEBUG_DIR = $$PWD/lib_x64/Desktop_Qt_5_12_6_MSVC2017_64bit/Debug/debug
+DEBUG_DIR = $$PWD/lib_x64/Debug/debug
 
 win32: {
     dllInst.files += $$DEBUG_DIR/*.dll

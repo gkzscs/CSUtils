@@ -19,6 +19,12 @@ CSLayout::~CSLayout()
     _listOldItems.clear();
 }
 
+void CSLayout::setWidget(CSWidget *wgt)
+{
+    _wgt = wgt;
+    refreshUI();
+}
+
 void CSLayout::setMargins(QMargins m)
 {
     _margins = m;
@@ -46,6 +52,11 @@ void CSLayout::refreshUI()
 
     // Reset container
     refreshOldItems();
+}
+
+void CSLayout::actualRefresh()
+{
+    refreshUI();
 }
 
 void CSLayout::clearLayout()

@@ -31,7 +31,7 @@ void CSWidget::setLayout(CSLayout *layout)
     }
 
     _layout = layout;
-    layout->refreshUI();
+    if (layout) layout->setWidget(this);
 }
 
 void CSWidget::init()

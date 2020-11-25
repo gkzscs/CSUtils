@@ -49,10 +49,10 @@ void CSVBoxLayout::initMember()
 
 void CSVBoxLayout::resizeSlot(QObject *s, QResizeEvent *e)
 {
-    if (s != _wgt || !_wgt || e->oldSize().height() == e->size().height()) return;
+    if (s != _wgt || !_wgt || e->oldSize().width() == e->size().width()) return;
 
-    const int h = e->size().height() - _margins.top() - _margins.bottom();
-    for (auto item : _listItems) item->resize(item->width(), h);
+    const int w = e->size().width() - _margins.left() - _margins.right();
+    for (auto item : _listItems) item->resize(w, item->height());
 }
 
 }   // End of namespace `cs`

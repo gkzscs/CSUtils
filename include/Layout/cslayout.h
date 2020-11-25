@@ -24,6 +24,7 @@ public:
     QMargins margins() const;
 
 protected:
+    virtual void actualRefresh() override;
     virtual void clearLayout();
     virtual void resetLayout() = 0;
 
