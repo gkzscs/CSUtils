@@ -54,6 +54,8 @@
 #include <QMovie>
 
 #include <QFont>
+#include <QFontDatabase>
+#include <QFontMetrics>
 #include <QToolTip>
 
 // Container

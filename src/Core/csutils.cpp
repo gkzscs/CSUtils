@@ -7,11 +7,23 @@
 #include <QLayout>
 #include <QStyle>
 #include <QSvgRenderer>
+#include <QFontDatabase>
 #include <QDebug>
 
 
 namespace cs
 {   // Start of namespace `cs`
+
+QFont CSUtils::getFont(const QString &fontFamilyPath, int idx)
+{
+    int id = QFontDatabase::addApplicationFont(fontFamilyPath);
+    auto fontFamilies = QFontDatabase::applicationFontFamilies(id);
+
+    QString fontName;
+    if (idx >= 0 && idx < fontFamilies.size()) fontName = fontFamilies.at(idx);
+
+    return QFont(fontName);
+}
 
 void CSUtils::setColor(QWidget *wgt, const QColor &bgColor, const QColor &txtColor)
 {
