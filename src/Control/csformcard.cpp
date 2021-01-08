@@ -8,13 +8,13 @@ namespace cs
 CSFormCard::CSFormCard(QWidget *parent)
     : CSWidget(parent)
 {
-    init();
+    initMember();
+    initUI();
 }
 
 CSFormCard::~CSFormCard()
 {
     _labTitle->deleteLater();
-    _vl = nullptr;
 }
 
 void CSFormCard::setTitle(const QString &title)
@@ -30,8 +30,7 @@ QString CSFormCard::title() const
 void CSFormCard::initMember()
 {
     _labTitle = new QLabel(this);
-    _vl = new CSVBoxLayout(this);
-    _layout = _vl;
+    _layout = new CSVBoxLayout(this);
 
     // Set object name
     _labTitle->setObjectName("card_title");
@@ -41,14 +40,14 @@ void CSFormCard::initUI()
 {
     setHidden(false);
     resize(330, 300);
-    setContentsMargins(30, 10, 10, 10);
+    setContentsMargins(20, 10, 10, 10);
 
     const auto margins = contentsMargins();
     const int w = width() - margins.left() - margins.right();
     const int h = 20;
 
     _labTitle->setGeometry(margins.left(), margins.top(), w, h );
-    _vl->setMargins(margins.left(), 50, margins.right(), margins.bottom());
+    _layout->setMargins(margins.left(), 50, margins.right(), margins.bottom());
 }
 
 }   // End of namespace `cs`

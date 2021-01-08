@@ -11,12 +11,13 @@ namespace cs
 CSScrollArea::CSScrollArea(QWidget *parent)
     : CSWidget(parent)
 {
-    init();
+    initMember();
 }
 
 CSScrollArea::~CSScrollArea()
 {
-    if (_wgt) _wgt->deleteLater();
+    _wgt = nullptr;
+//    if (_wgt) _wgt->deleteLater();
 }
 
 void CSScrollArea::setWidget(QWidget *wgt)
@@ -37,16 +38,6 @@ void CSScrollArea::initMember()
     _activeHProgress = false;
     _activeVProgress = false;
     _wgt = nullptr;
-}
-
-void CSScrollArea::initUI()
-{
-
-}
-
-void CSScrollArea::initSignalSlot()
-{
-
 }
 
 void CSScrollArea::drawHorizontalBar(QPainter &p)
@@ -70,7 +61,7 @@ void CSScrollArea::drawHorizontalBar(QPainter &p)
     p.drawLine(x, height()-n/2, x+w, height()-n/2);
 
     // Must add `update()` function, but I don't know why
-    update();
+//    update();
     p.restore();
 }
 
@@ -95,7 +86,7 @@ void CSScrollArea::drawVerticalBar(QPainter &p)
     p.drawLine(width()-n/2, y, width()-n/2, y+h);
 
     // Must add `update()` function, but I don't know why
-    update();
+//    update();
     p.restore();
 
 }

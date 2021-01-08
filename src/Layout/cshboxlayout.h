@@ -21,7 +21,7 @@ protected:
     virtual void resetLayout() override;
 
 protected:
-    virtual void initMember() override;
+    void initMember();
 
 protected slots:
     virtual void resizeSlot(QObject *s, QResizeEvent *e) override;

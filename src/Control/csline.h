@@ -26,7 +26,7 @@ public:
     Type getType() const;
 
 protected:
-    virtual void initUI() override;
+    void initUI();
 
 protected:
     virtual void paintEvent(QPaintEvent *event) override;
@@ -40,6 +40,6 @@ private:
 
 };
 
-}
+}   // End of `cs`
 
 #endif // CSLine_H

@@ -3,7 +3,6 @@
 
 #include <QtCore/qglobal.h>
 
-
 #ifdef CSUTILS_LIB
 #   define CSUTILS_EXPORT  Q_DECL_EXPORT
 #else

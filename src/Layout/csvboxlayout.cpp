@@ -8,13 +8,13 @@ namespace cs
 CSVBoxLayout::CSVBoxLayout(CSWidget *wgt)
     : CSLayout(wgt)
 {
-    init();
+    initMember();
 }
 
 void CSVBoxLayout::setSpace(int space)
 {
     _space = space;
-    refreshUI();
+    refresh();
 }
 
 int CSVBoxLayout::space() const
@@ -44,12 +44,14 @@ void CSVBoxLayout::resetLayout()
 
 void CSVBoxLayout::initMember()
 {
-    _space = 6;
+    setSpace(6);
 }
 
 void CSVBoxLayout::resizeSlot(QObject *s, QResizeEvent *e)
 {
-    if (s != _wgt || !_wgt || e->oldSize().width() == e->size().width()) return;
+    CSLayout::resizeSlot(s, e);
+
+    if (s != _wgt || !_wgt || !e || e->oldSize().width() == e->size().width()) return;
 
     const int w = e->size().width() - _margins.left() - _margins.right();
     for (auto item : _listItems) item->resize(w, item->height());

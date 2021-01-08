@@ -20,13 +20,14 @@ private:
     CSAppEvent();
 
 signals:
-    void clickSignal(QObject *sender);
-    void doubleClickSignal(QObject *sender);
+    void clickSignal(QObject *sender, QWidget *target);
+    void doubleClickSignal(QObject *sender, QWidget *target);
     void foldChangeSignal(QObject *sender, bool flag);
     void sendItemSignal(QObject *sender, QWidget *item);
     void receiveItemSignal(QObject *sender, int idx, QWidget *item);
     void resizeSignal(QObject *s, QResizeEvent *e);
     void showEditSignal(QObject *sender);
+    void refreshDataSignal(QObject *s);
 
 private:
     static CSAppEvent *_instance;

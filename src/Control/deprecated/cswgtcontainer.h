@@ -1,7 +1,7 @@
-#ifndef CSContainer_H
-#define CSContainer_H
+#ifndef WGTCSWgtContainer_H
+#define WGTCSWgtContainer_H
 
-#include <QObject>
+#include "Control/cswidget.h"
 #include <QTime>
 
 
@@ -9,11 +9,11 @@ namespace cs
 {   // Start of namespace `cs`
 
 template <typename T>
-class CSContainer : public QObject
+class CSUTILS_EXPORT CSWgtContainer : public CSWidget
 {
 public:
-    CSContainer();
-    virtual ~CSContainer() override;
+    CSWgtContainer(QWidget *parent = nullptr);
+    virtual ~CSWgtContainer();
 
     virtual bool add(T *item);
     virtual bool insert(int idx, T *item);
@@ -23,20 +23,23 @@ public:
     virtual bool replace(int idx, T *item);
     virtual bool move(int oldIdx, int newIdx);
     virtual bool swap(int idx1, int idx2);
-    virtual T *at(int idx) const;
+    virtual T *find(int idx) const;
     virtual int indexOf(T *item) const;
     virtual void clear();
 
     virtual int count() const;
-    virtual bool contains(T *item) const;
     virtual bool isEmpty() const;
     virtual QList<T *> allItems() const;
+
+protected:
+    virtual void init();
 
 protected:
     virtual void refresh();
     virtual void actualRefresh();
     virtual void dealAdd(T *item);
     virtual void dealRemove(T *item);
+    virtual void clearLayout(QWidget *wgt);
 
 protected:
     QList<T *> _listItems;
@@ -47,8 +50,4 @@ protected:
 
 }   // End of namespace `cs`
 
-
-// Include cpp
-#include "Core/cscontainer.cpp"
-
-#endif // CSContainer_H
+#endif // WGTCSWgtContainer_H

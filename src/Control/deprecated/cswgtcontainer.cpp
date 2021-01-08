@@ -1,28 +1,27 @@
-#include "cscontainer.h"
-#include <QLabel>
-#include <QToolButton>
-#include <QComboBox>
+#include "cswgtcontainer.h"
+
 
 namespace cs
 {   // Start of namespace `cs`
 
 template <typename T>
-CSContainer<T>::CSContainer()
+CSWgtContainer<T>::CSWgtContainer(QWidget *parent)
+    : CSWidget(parent)
 {
-    _flag = false;
+    init();
 }
 
 template <typename T>
-CSContainer<T>::~CSContainer()
+CSWgtContainer<T>::~CSWgtContainer()
 {
-    for (auto item : _listItems) dealRemove(item);
+    for (auto item : _listItems) dealAdd(item);
 
     qDeleteAll(_listItems);
     _listItems.clear();
 }
 
 template <typename T>
-bool CSContainer<T>::add(T *item)
+bool CSWgtContainer<T>::add(T *item)
 {
     if (!item) return false;
     if (_listItems.contains(item)) _listItems.removeAll(item);
@@ -35,7 +34,7 @@ bool CSContainer<T>::add(T *item)
 }
 
 template <typename T>
-bool CSContainer<T>::insert(int idx, T *item)
+bool CSWgtContainer<T>::insert(int idx, T *item)
 {
     if (!item) return false;
     if (_listItems.contains(item)) _listItems.removeAll(item);
@@ -50,7 +49,7 @@ bool CSContainer<T>::insert(int idx, T *item)
 }
 
 template <typename T>
-bool CSContainer<T>::remove(T *item)
+bool CSWgtContainer<T>::remove(T *item)
 {
     if (!item) return false;
     int res = _listItems.removeAll(item);
@@ -61,7 +60,7 @@ bool CSContainer<T>::remove(T *item)
 }
 
 template <typename T>
-bool CSContainer<T>::remove(int idx)
+bool CSWgtContainer<T>::remove(int idx)
 {
     if (idx < 0 || idx >= _listItems.size()) return false;
     auto item = _listItems.at(idx);
@@ -70,7 +69,7 @@ bool CSContainer<T>::remove(int idx)
 }
 
 template <typename T>
-bool CSContainer<T>::replace(T *oldItem, T *newItem)
+bool CSWgtContainer<T>::replace(T *oldItem, T *newItem)
 {
     if (!oldItem || !newItem || !_listItems.contains(oldItem)) return false;
 
@@ -85,7 +84,7 @@ bool CSContainer<T>::replace(T *oldItem, T *newItem)
 }
 
 template <typename T>
-bool CSContainer<T>::replace(int idx, T *item)
+bool CSWgtContainer<T>::replace(int idx, T *item)
 {
     if (idx < 0 || idx >= _listItems.size() || !item) return false;
     _listItems.removeAt(idx);
@@ -98,7 +97,7 @@ bool CSContainer<T>::replace(int idx, T *item)
 }
 
 template <typename T>
-bool CSContainer<T>::move(int oldIdx, int newIdx)
+bool CSWgtContainer<T>::move(int oldIdx, int newIdx)
 {
     if (oldIdx < 0 || oldIdx >= _listItems.size()) return false;
     if (newIdx < 0 || newIdx >= _listItems.size()) return false;
@@ -109,7 +108,7 @@ bool CSContainer<T>::move(int oldIdx, int newIdx)
 }
 
 template <typename T>
-bool CSContainer<T>::swap(int idx1, int idx2)
+bool CSWgtContainer<T>::swap(int idx1, int idx2)
 {
     if (idx1 < 0 || idx1 >= _listItems.size()) return false;
     if (idx2 < 0 || idx2 >= _listItems.size()) return false;
@@ -120,20 +119,20 @@ bool CSContainer<T>::swap(int idx1, int idx2)
 }
 
 template <typename T>
-T *CSContainer<T>::at(int idx) const
+T *CSWgtContainer<T>::find(int idx) const
 {
     if (idx < 0 || idx >= _listItems.size()) return nullptr;
     return _listItems.at(idx);
 }
 
 template <typename T>
-int CSContainer<T>::indexOf(T *item) const
+int CSWgtContainer<T>::indexOf(T *item) const
 {
     return _listItems.indexOf(item);
 }
 
 template <typename T>
-void CSContainer<T>::clear()
+void CSWgtContainer<T>::clear()
 {
     for (auto item : _listItems) dealRemove(item);
 
@@ -142,73 +141,93 @@ void CSContainer<T>::clear()
 }
 
 template <typename T>
-int CSContainer<T>::count() const
+int CSWgtContainer<T>::count() const
 {
     return _listItems.count();
 }
 
 template <typename T>
-bool CSContainer<T>::contains(T *item) const
-{
-    return _listItems.contains(item);
-}
-
-template <typename T>
-bool CSContainer<T>::isEmpty() const
+bool CSWgtContainer<T>::isEmpty() const
 {
     return _listItems.empty();
 }
 
 template <typename T>
-QList<T *> CSContainer<T>::allItems() const
+QList<T *> CSWgtContainer<T>::allItems() const
 {
     return _listItems;
 }
 
 template <typename T>
-void CSContainer<T>::refresh()
+void CSWgtContainer<T>::init()
 {
-    actualRefresh();
-
-//    const int duration = 20;
-
-//    // Control the fps of refresh
-//    if (!_flag)
-//    {
-//        _flag = true;
-//        _lastRefresh.restart();
-
-//        QTimer::singleShot(duration, this, &CSContainer<T>::refresh);
-//        return;
-//    }
-
-//    if (_lastRefresh.elapsed() < duration) return;
-
-//    // Call actual refresh function
-//    actualRefresh();
-
-//    // Reset variables
-//    _flag = false;
+    _flag = false;
 }
 
 template <typename T>
-void CSContainer<T>::actualRefresh()
+void CSWgtContainer<T>::refresh()
+{
+    const int duration = 20;
+
+    // Control the fps of refresh
+    if (!_flag)
+    {
+        _flag = true;
+        _lastRefresh.restart();
+
+        QTimer::singleShot(duration, this, &CSWgtContainer<T>::refresh);
+        return;
+    }
+
+    if (_lastRefresh.elapsed() < duration) return;
+
+    // Call actual refresh function
+    actualRefresh();
+
+    // Reset variables
+    _flag = false;
+}
+
+template <typename T>
+void CSWgtContainer<T>::actualRefresh()
 {
     // To do
 }
 
 template <typename T>
-void CSContainer<T>::dealAdd(T *item)
+void CSWgtContainer<T>::dealAdd(T *item)
 {
     Q_UNUSED(item)
 }
 
 template <typename T>
-void CSContainer<T>::dealRemove(T *item)
+void CSWgtContainer<T>::dealRemove(T *item)
 {
     Q_UNUSED(item)
 }
 
+template <typename T>
+void CSWgtContainer<T>::clearLayout(QWidget *wgt)
+{
+    if (!wgt) return;
+
+    // Clear layout
+    for (auto kid : wgt->children())
+    {
+        auto item = qobject_cast<T *>(kid);
+        if (!item) continue;
+        item->setParent(nullptr);
+        item->setHidden(true);
+    }
+}
+
+
+
+/********************************* Explicit instantiate **************************************/
+template class CSWgtContainer<QWidget>;
+
+
 }   // End of namespace `cs`
+
 
 

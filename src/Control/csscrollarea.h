@@ -20,9 +20,7 @@ public:
     void moveWidget(const QPoint &pos);
 
 protected:
-    virtual void initMember() override;
-    virtual void initUI() override;
-    virtual void initSignalSlot() override;
+    void initMember();
 
     void drawHorizontalBar(QPainter &p);
     void drawVerticalBar(QPainter &p);

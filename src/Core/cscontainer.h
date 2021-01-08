@@ -9,7 +9,7 @@ namespace cs
 {   // Start of namespace `cs`
 
 template <typename T>
-class CSUTILS_EXPORT CSContainer : public QObject
+class CSContainer : public QObject
 {
 public:
     CSContainer();
@@ -28,11 +28,9 @@ public:
     virtual void clear();
 
     virtual int count() const;
+    virtual bool contains(T *item) const;
     virtual bool isEmpty() const;
     virtual QList<T *> allItems() const;
-
-protected:
-    virtual void init();
 
 protected:
     virtual void refresh();
@@ -49,5 +47,8 @@ protected:
 
 }   // End of namespace `cs`
 
+
+// Include cpp
+#include "Core/cscontainer.cpp"
 
 #endif // CSContainer_H

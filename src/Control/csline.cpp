@@ -9,13 +9,13 @@ namespace cs
 CSLine::CSLine(QWidget *parent)
     : CSWidget(parent), _type(Normal)
 {
-    init();
+    initUI();
 }
 
 CSLine::CSLine(Type type, QWidget *parent)
     : CSWidget(parent), _type(type)
 {
-    init();
+    initUI();
 }
 
 
@@ -40,12 +40,11 @@ void CSLine::initUI()
 
 void CSLine::paintEvent(QPaintEvent *event)
 {
-    Q_UNUSED(event)
-
-    // Enable style sheet
-    CSUtils::enableStyleSheet(this);
+    cs::CSWidget::paintEvent(event);
 
     QPainter p(this);
+    p.setRenderHint(QPainter::Antialiasing);
+
     if (_type == Normal) drawNormal(p);
     else if (_type == CircleRect) drawCircleRect(p);
 }
@@ -62,15 +61,15 @@ void CSLine::drawCircleRect(QPainter &p)
     const int r = height()/2;
     QLine line(0, height()/2, width(), 1);
     QPoint centerP(15, r);
-    QRect rect(width() - 20, 0, 48, height());
+    QRect rect(width() - 66, 0, 48, height());
 
     p.save();
-    p.setPen(QColor(0, 255, 255));
-    p.setBrush(QColor(0, 255, 255));
+    p.setPen(QColor(0, 255, 255, 128));
+    p.setBrush(QColor(0, 255, 255, 128));
     p.drawLine(line);
     p.drawEllipse(centerP, r, r);
     p.drawRect(rect);
     p.restore();
 }
 
-}
+}   // End of `cs`

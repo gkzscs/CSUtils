@@ -105,13 +105,14 @@
 #include <Layout/cslayout.h>
 #include <Layout/cshboxlayout.h>
 #include <Layout/csvboxlayout.h>
+#include <Layout/csgridlayout.h>
 
 // Control
 #include <Control/cswidget.h>
 #include <Control/csline.h>
 #include <Control/csscrollarea.h>
 #include <Control/csformcard.h>
-
+#include <Control/csfoldbox.h>
 
 
 #endif  // __cplusplus

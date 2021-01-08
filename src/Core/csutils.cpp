@@ -34,7 +34,7 @@ void CSUtils::setStyleSheet(QWidget *wgt, const QString &filePath)
     bool res = file.open(QIODevice::ReadOnly);
     if (!res)
     {
-//        qDebug() << "Error to open file:" << filePath;
+        qDebug() << "Error to open file:" << filePath;
         return;
     }
 
@@ -213,6 +213,16 @@ bool CSUtils::keyIsAlphabet(int key)
 {
     bool res = (key >= 0x41 && key <= 0x5a);
     return res;
+}
+
+
+void CSUtils::wait(int msec)
+{
+    auto endTime = QTime::currentTime().addMSecs(msec);
+    while (QTime::currentTime() < endTime)
+    {
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 20);
+    }
 }
 
 }   // End of namespace `cs`

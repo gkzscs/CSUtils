@@ -28,13 +28,10 @@ protected:
     virtual void resetLayout() = 0;
 
 protected:
-    virtual void init() override;
-    virtual void initMember();
-    virtual void initUI();
-    virtual void initSignalSlot();
+    void initMember();
+    void initSignalSlot();
 
 protected:
-    virtual void refreshUI();
     virtual void refreshOldItems();
 
 protected slots:
@@ -46,10 +43,6 @@ protected:
     QList<QWidget *> _listOldItems;
 
 };
-
-
-/************************************* Extern template class **************************************/
-extern template class CSContainer<QWidget>;
 
 }   // End of namespace `cs`
 

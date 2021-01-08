@@ -20,14 +20,8 @@ public:
 
     QPoint globalPos() const;
 
-    void setLayout(CSLayout *layout);
-    CSLayout *layout() const;
-
-protected:
-    void init();
-    virtual void initMember();
-    virtual void initUI();
-    virtual void initSignalSlot();
+    void setCSLayout(CSLayout *layout);
+    CSLayout *cslayout() const;
 
 protected:
     virtual void paintEvent(QPaintEvent *event) override;

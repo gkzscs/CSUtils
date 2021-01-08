@@ -39,6 +39,7 @@ public:
     static QPixmap changeImageAlpha(const QPixmap &pixSource, int alpha);
     static bool keyIsNumber(int key);
     static bool keyIsAlphabet(int key);
+    static void wait(int msec);
 
 };
 

@@ -1,13 +1,13 @@
-#ifndef CSLine_H
-#define CSLine_H
+#ifndef CSSplitLine_H
+#define CSSplitLine_H
 
 #include "Control/cswidget.h"
 
 
 namespace cs
-{
+{   // Start of namespace `cs`
 
-class CSUTILS_EXPORT CSLine : public CSWidget
+class CSUTILS_EXPORT CSSplitLine : public CSWidget
 {
     Q_OBJECT
 
@@ -19,14 +19,14 @@ public:
     };
 
 public:
-    CSLine(QWidget *parent = nullptr);
-    CSLine(Type type, QWidget *parent = nullptr);
+    CSSplitLine(QWidget *parent = nullptr);
+    CSSplitLine(Type type, QWidget *parent = nullptr);
 
     void setType(Type type);
     Type getType() const;
 
 protected:
-    void initUI();
+    virtual void initUI() override;
 
 protected:
     virtual void paintEvent(QPaintEvent *event) override;
@@ -40,6 +40,6 @@ private:
 
 };
 
-}   // End of `cs`
+} // End of namespace `cs`
 
-#endif // CSLine_H
+#endif // CSSplitLine_H

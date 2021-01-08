@@ -17,8 +17,7 @@ public:
     CSLayout(CSWidget *wgt = nullptr);
     virtual ~CSLayout() override;
 
-    virtual void refreshUI();
-
+    void setWidget(CSWidget *wgt);
     void setMargins(QMargins m);
     void setMargins(int left, int top, int right, int bottom);
     QMargins margins() const;
@@ -29,10 +28,8 @@ protected:
     virtual void resetLayout() = 0;
 
 protected:
-    virtual void init();
-    virtual void initMember();
-    virtual void initUI();
-    virtual void initSignalSlot();
+    void initMember();
+    void initSignalSlot();
 
 protected:
     virtual void refreshOldItems();
@@ -46,10 +43,6 @@ protected:
     QList<QWidget *> _listOldItems;
 
 };
-
-
-/************************************* Extern template class **************************************/
-extern template class CSContainer<QWidget>;
 
 }   // End of namespace `cs`
 

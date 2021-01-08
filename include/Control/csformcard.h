@@ -20,11 +20,10 @@ public:
     QString title() const;
 
 protected:
-    virtual void initMember() override;
-    virtual void initUI() override;
+    void initMember();
+    void initUI();
 
 protected:
-    CSVBoxLayout *_vl;
     QLabel *_labTitle;
 
 };

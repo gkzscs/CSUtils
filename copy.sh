@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Just modify these 2 variables to change the source directory and destination directory
-src=`pwd`/src
+src=`pwd`/src 
 dst=`pwd`/include
 
 traverse_dir()
@@ -12,7 +12,7 @@ traverse_dir()
 	do
 		if [ -d $filepath/$file ] 
 		then
-			if [[ $file != '.' && $file != '..' && $filepath/$file != $dst ]] 
+			if [[ $file != '.' && $file != '..' && $file != 'lib_x64' && $filepath/$file != $dst ]] 
 			then
 				traverse_dir $filepath/$file
 			fi

@@ -8,13 +8,13 @@ namespace cs
 CSHBoxLayout::CSHBoxLayout(CSWidget *wgt)
     : CSLayout(wgt)
 {
-    init();
+    initMember();
 }
 
 void CSHBoxLayout::setSpace(int space)
 {
     _space = space;
-    refreshUI();
+    refresh();
 }
 
 int CSHBoxLayout::space() const
@@ -44,15 +44,17 @@ void CSHBoxLayout::resetLayout()
 
 void CSHBoxLayout::initMember()
 {
-    _space = 6;
+    setSpace(6);
 }
 
 void CSHBoxLayout::resizeSlot(QObject *s, QResizeEvent *e)
 {
-    if (s != _wgt || !_wgt || e->oldSize().height() == e->size().height()) return;
+    CSLayout::resizeSlot(s, e);
+
+    if (s != _wgt || !_wgt || !e || e->oldSize().height() == e->size().height()) return;
 
     const int h = e->size().height() - _margins.top() - _margins.bottom();
     for (auto item : _listItems) item->resize(item->width(), h);
 }
 
-}
+}   // End of `cs`

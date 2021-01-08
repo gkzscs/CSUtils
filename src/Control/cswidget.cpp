@@ -10,12 +10,12 @@ namespace cs
 CSWidget::CSWidget(QWidget *parent)
     : QWidget(parent)
 {
-    init();
+    _layout = nullptr;
 }
 
 CSWidget::~CSWidget()
 {
-    // Do nothing
+    if (_layout) _layout->deleteLater();
 }
 
 QPoint CSWidget::globalPos() const
@@ -23,9 +23,9 @@ QPoint CSWidget::globalPos() const
     return mapToGlobal(QPoint(0, 0));
 }
 
-void CSWidget::setLayout(CSLayout *layout)
+void CSWidget::setCSLayout(CSLayout *layout)
 {
-    if (_layout)
+    if (_layout && _layout != layout)
     {
         _layout->deleteLater();
     }
@@ -34,26 +34,9 @@ void CSWidget::setLayout(CSLayout *layout)
     if (layout) layout->setWidget(this);
 }
 
-void CSWidget::init()
+CSLayout *CSWidget::cslayout() const
 {
-    initMember();
-    initUI();
-    initSignalSlot();
-}
-
-void CSWidget::initMember()
-{
-    _layout = nullptr;
-}
-
-void CSWidget::initUI()
-{
-    // Do nothing
-}
-
-void CSWidget::initSignalSlot()
-{
-    // Do nothing
+    return _layout;
 }
 
 void CSWidget::paintEvent(QPaintEvent *event)
@@ -66,9 +49,7 @@ void CSWidget::paintEvent(QPaintEvent *event)
 
 void CSWidget::resizeEvent(QResizeEvent *event)
 {
-    Q_UNUSED(event)
-
-    if (_layout) emit CSAppEvent::instance()->resizeSignal(this, event);
+    emit CSAppEvent::instance()->resizeSignal(this, event);
 }
 
 } // End of namespace `cs`
