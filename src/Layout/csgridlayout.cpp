@@ -13,16 +13,16 @@ CSGridLayout::CSGridLayout(CSWidget *wgt)
 
 void CSGridLayout::setRowColumnCounts(int row, int col)
 {
-    _rowCount = row;
-    _colCount = col;
+    _rowCount = (row < 1 ? 1 : row);
+    _colCount = (col < 1 ? 1 : col);
 
     refresh();
 }
 
 void CSGridLayout::setSpaces(int hSpace, int vSpace)
 {
-    _hSpace = hSpace;
-    _vSpace = vSpace;
+    _hSpace = (hSpace < 0 ? 0 : hSpace);
+    _vSpace = (vSpace < 0 ? 0 : vSpace);
 
     refresh();
 }
@@ -53,7 +53,10 @@ void CSGridLayout::resetLayout()
 
 void CSGridLayout::initMember()
 {
-    setSpaces(6, 6);
+    _rowCount = 3;
+    _colCount = 3;
+    _hSpace = 6;
+    _vSpace = 6;
 }
 
 void CSGridLayout::resizeUI()
@@ -64,15 +67,19 @@ void CSGridLayout::resizeUI()
     // Set each item's geometry
     int x = _margins.left();
     int y = _margins.top();
-    const int w = (s.width()-margins().left()-_margins.right()+_hSpace) / _listItems.count() - _hSpace;
-    const int h = (s.height()-_margins.top()-_margins.bottom()+_vSpace) / _listItems.count() - _vSpace;
+    const int w = (s.width()-margins().left()-_margins.right()+_hSpace) / _colCount - _hSpace;
+    const int h = (s.height()-_margins.top()-_margins.bottom()+_vSpace) / _rowCount - _vSpace;
 
     for (int i = 0, n = _listItems.count(); i < n; ++i)
     {
         _listItems.at(i)->setGeometry(x, y, w, h);
 
         x += w + _hSpace;
-        y += h + _vSpace;
+        if ((i+1) % _colCount == 0)
+        {
+            x = _margins.left();
+            y += h + _vSpace;
+        }
     }
 }
 

@@ -40,7 +40,7 @@ SOURCES += \
     Layout/csvboxlayout.cpp
 
 
-DEBUG_DIR = $$PWD/lib_x64/Debug/debug
+DEBUG_DIR = $$PWD/lib_x64/win/Debug/debug
 
 win32: {
     dllInst.files += $$DEBUG_DIR/*.dll
