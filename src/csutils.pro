@@ -1,4 +1,4 @@
-QT += widgets svg
+QT += widgets svg websockets
 CONFIG += c++11 precompile_header
 TEMPLATE = lib
 TARGET = csutils
@@ -21,6 +21,10 @@ HEADERS += \
     Layout/cshboxlayout.h \
     Layout/cslayout.h \
     Layout/csvboxlayout.h \
+    Communication/csipchelper.h \
+    Communication/csappconnector.h \
+    Communication/cslocalclient.h \
+    Communication/cslocalserver.h \
     csutils_global.h \
     csutils_stable.h
 
@@ -37,7 +41,11 @@ SOURCES += \
     Layout/csgridlayout.cpp \
     Layout/cshboxlayout.cpp \
     Layout/cslayout.cpp \
-    Layout/csvboxlayout.cpp
+    Layout/csvboxlayout.cpp \
+    Communication/csipchelper.cpp \
+    Communication/csappconnector.cpp \
+    Communication/cslocalclient.cpp \
+    Communication/cslocalserver.cpp
 
 
 DEBUG_DIR = $$PWD/lib_x64/win/Debug/debug

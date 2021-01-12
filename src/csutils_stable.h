@@ -22,6 +22,12 @@
 #include <QGroupBox>
 #include <QToolBar>
 
+// Menu
+#include <QMenu>
+#include <QAction>
+#include <QWidgetAction>
+#include <QSystemTrayIcon>
+
 // View
 #include <QListView>
 #include <QTableView>
@@ -62,6 +68,17 @@
 #include <QVector>
 #include <QList>
 
+// Application
+#include <QSharedMemory>
+#include <QApplication>
+#include <QProcess>
+#include <QThread>
+#include <QTimer>
+
+// Sockets
+#include <QLocalSocket>
+#include <QLocalServer>
+
 // Qt events
 #include <QPaintEvent>
 #include <QResizeEvent>
@@ -77,11 +94,7 @@
 
 #include <QDebug>
 #include <QFile>
-#include <QSharedMemory>
-#include <QApplication>
 
-#include <QThread>
-#include <QTimer>
 #include <QIntValidator>
 #include <QRegExp>
 
@@ -115,6 +128,12 @@
 #include <Control/csscrollarea.h>
 #include <Control/csformcard.h>
 #include <Control/csfoldbox.h>
+
+// Communication
+#include <Communication/csappconnector.h>
+#include <Communication/csipchelper.h>
+#include <Communication/cslocalclient.h>
+#include <Communication/cslocalserver.h>
 
 
 #endif  // __cplusplus
