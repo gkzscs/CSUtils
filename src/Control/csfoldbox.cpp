@@ -18,7 +18,8 @@ void CSFoldBox::setFold(bool flag)
     else _vl->add(_body);
 
     _fold = flag;
-    emit CSAppEvent::instance()->foldChangeSignal(this, flag);
+    emit foldChangeSignal(flag);
+//    emit CSAppEvent::instance()->foldChangeSignal(this, this, flag);
 }
 
 void CSFoldBox::setHead(QWidget *head)

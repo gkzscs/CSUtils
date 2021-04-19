@@ -61,7 +61,8 @@ void CSLine::drawCircleRect(QPainter &p)
     const int r = height()/2;
     QLine line(0, height()/2, width(), 1);
     QPoint centerP(15, r);
-    QRect rect(width() - 66, 0, 48, height());
+    // Strange! The geometry is not `y = 1 && h = height()-2`
+    QRect rect(width() - 66, 0, 48, height()-2);
 
     p.save();
     p.setPen(QColor(0, 255, 255, 128));

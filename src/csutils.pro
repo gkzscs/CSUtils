@@ -14,7 +14,11 @@ HEADERS += \
     Control/csscrollarea.h \
     Control/cswidget.h \
     Control/csfoldbox.h \
+    Control/cspairctrl.h    \
+    Control/cspairctrl_impl.hpp  \
+    Control/csswitchbutton.h    \
     Core/cscontainer.h \
+    Core/cscontainer_impl.hpp \
     Core/csutils.h \
     Core/csappevent.h   \
     Layout/csgridlayout.h \
@@ -25,6 +29,8 @@ HEADERS += \
     Communication/csappconnector.h \
     Communication/cslocalclient.h \
     Communication/cslocalserver.h \
+    Animation/csanimation.h \
+    Animation/cswaitanimation.h \
     csutils_global.h \
     csutils_stable.h
 
@@ -35,7 +41,7 @@ SOURCES += \
     Control/csscrollarea.cpp \
     Control/cswidget.cpp \
     Control/csfoldbox.cpp   \
-    Core/cscontainer.cpp \
+    Control/csswitchbutton.cpp  \
     Core/csutils.cpp \
     Core/csappevent.cpp \
     Layout/csgridlayout.cpp \
@@ -45,15 +51,8 @@ SOURCES += \
     Communication/csipchelper.cpp \
     Communication/csappconnector.cpp \
     Communication/cslocalclient.cpp \
-    Communication/cslocalserver.cpp
+    Communication/cslocalserver.cpp \
+    Animation/csanimation.cpp   \
+    Animation/cswaitanimation.cpp
 
 
-DEBUG_DIR = $$PWD/lib_x64/win/Debug/debug
-
-win32: {
-    dllInst.files += $$DEBUG_DIR/*.dll
-    dllInst.path += $$PWD/../bin
-    libInst.files += $$DEBUG_DIR/*.lib
-    libInst.path += $$PWD/../lib
-    INSTALLS += dllInst libInst
-}

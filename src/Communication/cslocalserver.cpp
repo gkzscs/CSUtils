@@ -47,6 +47,15 @@ void CSLocalServer::sendCommand(const QString &appName, CSIpcHelper::Command cmd
     }
 }
 
+// Send command to all connected clients
+void CSLocalServer::sendCommand2AllClients(CSIpcHelper::Command cmd)
+{
+    for (auto client : _listClients)
+    {
+        CSIpcHelper::instance()->sendCommand(client, client->objectName(), cmd);
+    }
+}
+
 void CSLocalServer::initMember()
 {
     _server = new QLocalServer(this);

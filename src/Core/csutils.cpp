@@ -14,6 +14,20 @@
 namespace cs
 {   // Start of namespace `cs`
 
+/*********************************** `GUI` ********************************/
+/*********************************** Generate *************************************/
+QToolButton *CSUtils::createToolButton(const QSize &btnSize, QWidget *parent, Qt::ToolButtonStyle style)
+{
+    auto btn = new QToolButton(parent);
+    btn->resize(btnSize);
+    btn->setIconSize(btnSize);
+    btn->setAutoRaise(true);
+    btn->setToolButtonStyle(style);
+
+    return btn;
+}
+
+/*********************************** Style ********************************/
 QFont CSUtils::getFont(const QString &fontFamilyPath, int idx)
 {
     int id = QFontDatabase::addApplicationFont(fontFamilyPath);
@@ -73,13 +87,7 @@ void CSUtils::updateStyleSheet(QWidget *wgt)
     wgt->style()->polish(wgt);
 }
 
-QString CSUtils::convert2Html(const QString &str)
-{
-    QString html = "<p style='line-height: %1px'>" + str + "</p>";
-    html = html.replace("\n", "<br>");
-    return html;
-}
-
+/************************************ Layout *************************************/
 void CSUtils::clearLayout(QLayout *layout)
 {
     QLayoutItem *item = nullptr;
@@ -134,6 +142,7 @@ QRect CSUtils::calcProperValue(QRect oldRect, const QSize &originSize, const QSi
     return newRect;
 }
 
+/************************************ Image ****************************************/
 void CSUtils::setScaledPixmap(QLabel *lab, const QPixmap &pix, Qt::AspectRatioMode aspectMode)
 {
     if (!lab || pix.isNull()) return;
@@ -213,6 +222,14 @@ QPixmap CSUtils::changeImageAlpha(const QPixmap &pixSource, int alpha)
     }
 
     return QPixmap::fromImage(img);
+}
+
+/********************************** `Algorithm` ***********************************/
+QString CSUtils::convert2Html(const QString &str)
+{
+    QString html = "<p style='line-height: %1px'>" + str + "</p>";
+    html = html.replace("\n", "<br>");
+    return html;
 }
 
 bool CSUtils::keyIsNumber(int key)

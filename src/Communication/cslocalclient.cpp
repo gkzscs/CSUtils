@@ -100,7 +100,7 @@ void CSLocalClient::showWindow()
 
     _wnd->setWindowFlag(Qt::WindowStaysOnTopHint);
     _wnd->setWindowModality(Qt::ApplicationModal);
-    _wnd->show();
+    _wnd->showNormal();
 }
 
 void CSLocalClient::exitApp()

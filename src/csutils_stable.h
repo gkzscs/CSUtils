@@ -128,6 +128,12 @@
 #include <Control/csscrollarea.h>
 #include <Control/csformcard.h>
 #include <Control/csfoldbox.h>
+#include <Control/cspairctrl.h>
+#include <Control/csswitchbutton.h>
+
+// Animation
+#include <Animation/csanimation.h>
+#include <Animation/cswaitanimation.h>
 
 // Communication
 #include <Communication/csappconnector.h>

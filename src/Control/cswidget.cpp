@@ -49,6 +49,8 @@ void CSWidget::paintEvent(QPaintEvent *event)
 
 void CSWidget::resizeEvent(QResizeEvent *event)
 {
+    QWidget::resizeEvent(event);
+
     emit CSAppEvent::instance()->resizeSignal(this, event);
 }
 

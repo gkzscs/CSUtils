@@ -23,6 +23,7 @@ public:
 
     void bootApp(const QString &appUrl);
     void sendCommand(const QString &appName, CSIpcHelper::Command cmd);
+    void sendCommand2AllClients(CSIpcHelper::Command cmd);
 
 protected:
     void initMember();

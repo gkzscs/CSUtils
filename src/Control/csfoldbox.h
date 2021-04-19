@@ -1,7 +1,7 @@
 #ifndef CSFoldBox_H
 #define CSFoldBox_H
 
-#include "cswidget.h"
+#include "Control/cswidget.h"
 
 
 namespace cs
@@ -29,6 +29,9 @@ protected:
 
 protected:
     virtual void mousePressEvent(QMouseEvent *e) override;
+
+signals:
+    void foldChangeSignal(bool fold);
 
 protected:
     cs::CSVBoxLayout *_vl;

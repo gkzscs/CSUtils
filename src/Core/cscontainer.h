@@ -1,4 +1,4 @@
-#ifndef CSContainer_H
+﻿#ifndef CSContainer_H
 #define CSContainer_H
 
 #include <QObject>
@@ -15,22 +15,22 @@ public:
     CSContainer();
     virtual ~CSContainer() override;
 
-    virtual bool add(T *item);
-    virtual bool insert(int idx, T *item);
-    virtual bool remove(T *item);
-    virtual bool remove(int idx);
-    virtual bool replace(T *oldItem, T *newItem);
-    virtual bool replace(int idx, T *item);
-    virtual bool move(int oldIdx, int newIdx);
-    virtual bool swap(int idx1, int idx2);
-    virtual T *at(int idx) const;
-    virtual int indexOf(T *item) const;
-    virtual void clear();
+    bool add(T *item);
+    bool insert(int idx, T *item);
+    bool remove(T *item);
+    bool remove(int idx);
+    bool replace(T *oldItem, T *newItem);
+    bool replace(int idx, T *item);
+    bool move(int oldIdx, int newIdx);
+    bool swap(int idx1, int idx2);
+    T *at(int idx) const;
+    int indexOf(T *item) const;
+    void clear();
 
-    virtual int count() const;
-    virtual bool contains(T *item) const;
-    virtual bool isEmpty() const;
-    virtual QList<T *> allItems() const;
+    int count() const;
+    bool contains(T *item) const;
+    bool isEmpty() const;
+    QList<T *> allItems() const;
 
 protected:
     virtual void refresh();
@@ -49,6 +49,7 @@ protected:
 
 
 // Include cpp
-#include "Core/cscontainer.cpp"
+#define CSCONTAINER_IMPL_HPP
+#include "Core/cscontainer_impl.hpp"
 
 #endif // CSContainer_H

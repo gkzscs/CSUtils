@@ -2,7 +2,7 @@
 #define CSAppConnector_H
 
 #include <map>
-#include "csutils_stable.h"
+#include "csutils_global.h"
 
 
 namespace cs

@@ -3,6 +3,7 @@
 
 #include "Control/cswidget.h"
 
+
 namespace cs
 { // Start of namespace `cs`
 
@@ -21,6 +22,7 @@ public:
 
 protected:
     void initMember();
+    void initSignalSlot();
 
     void drawHorizontalBar(QPainter &p);
     void drawVerticalBar(QPainter &p);
@@ -38,6 +40,9 @@ protected:
     QRect getBarRect(bool isHorizontal) const;
     bool isOnProgress(const QPoint &point, bool isHorizontal) const;
     bool isOnBar(const QPoint &point, bool isHorizontal) const;
+
+protected slots:
+    void resizeSlot(QObject *s, QResizeEvent *e);
 
 protected:
     bool _showHorizontalBar;
