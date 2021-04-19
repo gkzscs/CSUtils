@@ -5,15 +5,20 @@
 #include <QDebug>
 
 
+namespace cs
+{ // Start of namespace `cs`
+
 CSScrollArea::CSScrollArea(QWidget *parent)
     : CSWidget(parent)
 {
-    init();
+    initMember();
+    initSignalSlot();
 }
 
 CSScrollArea::~CSScrollArea()
 {
-    if (_wgt) _wgt->deleteLater();
+    _wgt = nullptr;
+//    if (_wgt) _wgt->deleteLater();
 }
 
 void CSScrollArea::setWidget(QWidget *wgt)
@@ -36,14 +41,9 @@ void CSScrollArea::initMember()
     _wgt = nullptr;
 }
 
-void CSScrollArea::initUI()
-{
-
-}
-
 void CSScrollArea::initSignalSlot()
 {
-
+    connect(cs::CSAppEvent::instance(), &cs::CSAppEvent::resizeSignal, this, &CSScrollArea::resizeSlot);
 }
 
 void CSScrollArea::drawHorizontalBar(QPainter &p)
@@ -66,8 +66,6 @@ void CSScrollArea::drawHorizontalBar(QPainter &p)
     int w = static_cast<int>(width() * (width() / static_cast<double>(_wgt->width())));
     p.drawLine(x, height()-n/2, x+w, height()-n/2);
 
-    // Must add `update()` function, but I don't know why
-    update();
     p.restore();
 }
 
@@ -91,10 +89,7 @@ void CSScrollArea::drawVerticalBar(QPainter &p)
     int h = static_cast<int>(height() * (height() / static_cast<double>(_wgt->height())));
     p.drawLine(width()-n/2, y, width()-n/2, y+h);
 
-    // Must add `update()` function, but I don't know why
-    update();
     p.restore();
-
 }
 
 void CSScrollArea::paintEvent(QPaintEvent *event)
@@ -161,6 +156,8 @@ void CSScrollArea::moveWidget(int x, int y)
     if (y > 0) y = 0;
 
     _wgt->move(x, y);
+    // Must add `update()` function, or it would not redraw
+    update();
 }
 
 void CSScrollArea::moveWidget(const QPoint &pos)
@@ -218,6 +215,16 @@ bool CSScrollArea::isOnBar(const QPoint &point, bool isHorizontal) const
     return rect.contains(point);
 }
 
+void CSScrollArea::resizeSlot(QObject *s, QResizeEvent *e)
+{
+    Q_UNUSED(e)
+    if (s != _wgt) return;
+
+    // Redraw the scroll bar
+    update();
+}
+
+} // End of namespace `cs`
 
 
 

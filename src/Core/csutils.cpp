@@ -7,8 +7,37 @@
 #include <QLayout>
 #include <QStyle>
 #include <QSvgRenderer>
+#include <QFontDatabase>
 #include <QDebug>
 
+
+namespace cs
+{   // Start of namespace `cs`
+
+/*********************************** `GUI` ********************************/
+/*********************************** Generate *************************************/
+QToolButton *CSUtils::createToolButton(const QSize &btnSize, QWidget *parent, Qt::ToolButtonStyle style)
+{
+    auto btn = new QToolButton(parent);
+    btn->resize(btnSize);
+    btn->setIconSize(btnSize);
+    btn->setAutoRaise(true);
+    btn->setToolButtonStyle(style);
+
+    return btn;
+}
+
+/*********************************** Style ********************************/
+QFont CSUtils::getFont(const QString &fontFamilyPath, int idx)
+{
+    int id = QFontDatabase::addApplicationFont(fontFamilyPath);
+    auto fontFamilies = QFontDatabase::applicationFontFamilies(id);
+
+    QString fontName;
+    if (idx >= 0 && idx < fontFamilies.size()) fontName = fontFamilies.at(idx);
+
+    return QFont(fontName);
+}
 
 void CSUtils::setColor(QWidget *wgt, const QColor &bgColor, const QColor &txtColor)
 {
@@ -31,7 +60,7 @@ void CSUtils::setStyleSheet(QWidget *wgt, const QString &filePath)
     bool res = file.open(QIODevice::ReadOnly);
     if (!res)
     {
-//        qDebug() << "Error to open file:" << filePath;
+        qDebug() << "Error to open file:" << filePath;
         return;
     }
 
@@ -58,13 +87,7 @@ void CSUtils::updateStyleSheet(QWidget *wgt)
     wgt->style()->polish(wgt);
 }
 
-QString CSUtils::convert2Html(const QString &str)
-{
-    QString html = "<p style='line-height: %1px'>" + str + "</p>";
-    html = html.replace("\n", "<br>");
-    return html;
-}
-
+/************************************ Layout *************************************/
 void CSUtils::clearLayout(QLayout *layout)
 {
     QLayoutItem *item = nullptr;
@@ -119,6 +142,7 @@ QRect CSUtils::calcProperValue(QRect oldRect, const QSize &originSize, const QSi
     return newRect;
 }
 
+/************************************ Image ****************************************/
 void CSUtils::setScaledPixmap(QLabel *lab, const QPixmap &pix, Qt::AspectRatioMode aspectMode)
 {
     if (!lab || pix.isNull()) return;
@@ -200,6 +224,14 @@ QPixmap CSUtils::changeImageAlpha(const QPixmap &pixSource, int alpha)
     return QPixmap::fromImage(img);
 }
 
+/********************************** `Algorithm` ***********************************/
+QString CSUtils::convert2Html(const QString &str)
+{
+    QString html = "<p style='line-height: %1px'>" + str + "</p>";
+    html = html.replace("\n", "<br>");
+    return html;
+}
+
 bool CSUtils::keyIsNumber(int key)
 {
     bool res = (key >= 0x30 && key <= 0x39);
@@ -211,4 +243,16 @@ bool CSUtils::keyIsAlphabet(int key)
     bool res = (key >= 0x41 && key <= 0x5a);
     return res;
 }
+
+
+void CSUtils::wait(int msec)
+{
+    auto endTime = QTime::currentTime().addMSecs(msec);
+    while (QTime::currentTime() < endTime)
+    {
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 20);
+    }
+}
+
+}   // End of namespace `cs`
 

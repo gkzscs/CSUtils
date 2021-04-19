@@ -1,3 +1,4 @@
 lib_x64
 bin
+include
 *.user

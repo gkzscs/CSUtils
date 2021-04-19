@@ -1,5 +1,5 @@
-#ifndef STABLE_H
-#define STABLE_H
+#ifndef CSUTILS_STABLE_H
+#define CSUTILS_STABLE_H
 
 
 // Add C++ includes here
@@ -21,6 +21,17 @@
 #include <QRadioButton>
 #include <QGroupBox>
 #include <QToolBar>
+
+// Menu
+#include <QMenu>
+#include <QAction>
+#include <QWidgetAction>
+#include <QSystemTrayIcon>
+
+// View
+#include <QListView>
+#include <QTableView>
+#include <QTreeView>
 
 // Layout
 #include <QHBoxLayout>
@@ -49,11 +60,24 @@
 #include <QMovie>
 
 #include <QFont>
+#include <QFontDatabase>
+#include <QFontMetrics>
 #include <QToolTip>
 
 // Container
 #include <QVector>
 #include <QList>
+
+// Application
+#include <QSharedMemory>
+#include <QApplication>
+#include <QProcess>
+#include <QThread>
+#include <QTimer>
+
+// Sockets
+#include <QLocalSocket>
+#include <QLocalServer>
 
 // Qt events
 #include <QPaintEvent>
@@ -70,11 +94,7 @@
 
 #include <QDebug>
 #include <QFile>
-#include <QSharedMemory>
-#include <QApplication>
 
-#include <QThread>
-#include <QTimer>
 #include <QIntValidator>
 #include <QRegExp>
 
@@ -90,25 +110,40 @@
 
 
 
+/**************************************** CS Utils Library ************************************/
+// Core
+#include <Core/csutils.h>
+#include <Core/csappevent.h>
+#include <Core/cscontainer.h>
 
-/**************************************** Other Includes ************************************/
-// GUI utilities
-#include <csutils.h>
-#include <cswidget.h>
-#include <csscrollarea.h>
+// Layout
+#include <Layout/cslayout.h>
+#include <Layout/cshboxlayout.h>
+#include <Layout/csvboxlayout.h>
+#include <Layout/csgridlayout.h>
 
-// Own utilities
-//#include "controlcontainer.h"
-//#include "foldingbox.h"
-//#include "formcard.h"
-//#include "labelcontrol.h"
-//#include "splitline.h"
-//#include "appevent.h"
+// Control
+#include <Control/cswidget.h>
+#include <Control/csline.h>
+#include <Control/csscrollarea.h>
+#include <Control/csformcard.h>
+#include <Control/csfoldbox.h>
+#include <Control/cspairctrl.h>
+#include <Control/csswitchbutton.h>
 
+// Animation
+#include <Animation/csanimation.h>
+#include <Animation/cswaitanimation.h>
+
+// Communication
+#include <Communication/csappconnector.h>
+#include <Communication/csipchelper.h>
+#include <Communication/cslocalclient.h>
+#include <Communication/cslocalserver.h>
 
 
 #endif  // __cplusplus
-#endif  // STABLE_H
+#endif  // CSUTILS_STABLE_H
 
 
 
