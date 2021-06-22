@@ -22,8 +22,11 @@ public:
     void setMargins(int left, int top, int right, int bottom);
     QMargins margins() const;
 
+    // Overwrite the function of deep clear
+    void deepClear();
+
 protected:
-    virtual void actualRefresh() override;
+    void actualRefresh() override;
     virtual void clearLayout();
     virtual void resetLayout() = 0;
 

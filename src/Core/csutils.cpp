@@ -118,28 +118,39 @@ int CSUtils::calcProperValue(int oldValue, const QSize &originSize, const QSize 
 
 QSize CSUtils::calcProperValue(QSize oldSize, const QSize &originSize, const QSize &nowSize)
 {
-    QSize newSize = oldSize;
     double fw = static_cast<double>(nowSize.width()) / originSize.width();
     double fh = static_cast<double>(nowSize.height()) / originSize.height();
 
-    newSize.setWidth(static_cast<int>(oldSize.width() * fw));
-    newSize.setHeight(static_cast<int>(oldSize.height() * fh));
+    auto w = static_cast<int>(oldSize.width() * fw);
+    auto h = static_cast<int>(oldSize.height() * fh);
 
-    return newSize;
+    return QSize(w, h);
 }
 
 QRect CSUtils::calcProperValue(QRect oldRect, const QSize &originSize, const QSize &nowSize)
 {
-    QRect newRect = oldRect;
     double fw = static_cast<double>(nowSize.width()) / originSize.width();
     double fh = static_cast<double>(nowSize.height()) / originSize.height();
 
-    newRect.setX(static_cast<int>(oldRect.x() * fw));
-    newRect.setY(static_cast<int>(oldRect.y() * fh));
-    newRect.setWidth(static_cast<int>(oldRect.width() * fw));
-    newRect.setHeight(static_cast<int>(oldRect.height() * fh));
+    auto x = static_cast<int>(oldRect.x() * fw);
+    auto y = static_cast<int>(oldRect.y() * fh);
+    auto w = static_cast<int>(oldRect.width() * fw);
+    auto h = static_cast<int>(oldRect.height() * fh);
 
-    return newRect;
+    return QRect(x, y, w, h);
+}
+
+QMargins CSUtils::calcProperValue(QMargins oldMargins, const QSize &originSize, const QSize &nowSize)
+{
+    double fw = static_cast<double>(nowSize.width()) / originSize.width();
+    double fh = static_cast<double>(nowSize.height()) / originSize.height();
+
+    auto left = static_cast<int>(oldMargins.left() * fw);
+    auto right = static_cast<int>(oldMargins.right() * fw);
+    auto top = static_cast<int>(oldMargins.top() * fh);
+    auto bottom = static_cast<int>(oldMargins.bottom() * fh);
+
+    return QMargins(left, top, right, bottom);
 }
 
 /************************************ Image ****************************************/

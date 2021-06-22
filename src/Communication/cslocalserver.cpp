@@ -78,6 +78,9 @@ void CSLocalServer::dealCommand(QLocalSocket *client, const QString &appName, CS
     case CSIpcHelper::Hide:
     case CSIpcHelper::Exit:
         break;
+    case CSIpcHelper::Reboot:
+        emit receivedMsgSignal("reboot");
+        break;
     case CSIpcHelper::Register:
         client->setObjectName(appName);
         break;
@@ -117,7 +120,7 @@ void CSLocalServer::disconnectedSlot()
 
 void CSLocalServer::readyReadSlot()
 {
-    auto client = dynamic_cast<QLocalSocket *>(sender());
+    auto client = dynamic_cast<QLocalSocket*>(sender());
     if (!client) return;
 
     // Get message
@@ -126,6 +129,8 @@ void CSLocalServer::readyReadSlot()
 
     // Deal commands
     dealCommand(client, pairNameCmd.first, pairNameCmd.second);
+
+    emit receivedMsgSignal(msg);
 }
 
 }   // End of `cs`

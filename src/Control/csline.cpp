@@ -51,8 +51,10 @@ void CSLine::paintEvent(QPaintEvent *event)
 
 void CSLine::drawNormal(QPainter &p)
 {
+    QColor color(p.pen().color());
+
     p.save();
-    p.fillRect(rect(), QBrush());
+    p.fillRect(rect(), color);
     p.restore();
 }
 
@@ -63,10 +65,11 @@ void CSLine::drawCircleRect(QPainter &p)
     QPoint centerP(15, r);
     // Strange! The geometry is not `y = 1 && h = height()-2`
     QRect rect(width() - 66, 0, 48, height()-2);
+    QColor color(p.pen().color());
 
     p.save();
-    p.setPen(QColor(0, 255, 255, 128));
-    p.setBrush(QColor(0, 255, 255, 128));
+    p.setPen(color);
+    p.setBrush(color);
     p.drawLine(line);
     p.drawEllipse(centerP, r, r);
     p.drawRect(rect);

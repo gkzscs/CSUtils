@@ -137,6 +137,18 @@ void CSContainer<T>::clear()
     for (auto item : _listItems) dealRemove(item);
 
     _listItems.clear();
+
+    refresh();
+}
+
+template <typename T>
+void CSContainer<T>::deepClear()
+{
+    for (auto item : _listItems) dealRemove(item);
+
+    qDeleteAll(_listItems);
+    _listItems.clear();
+
     refresh();
 }
 

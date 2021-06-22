@@ -7,6 +7,8 @@ PRECOMPILED_HEADER += csutils_stable.h
 
 DEFINES += CSUTILS_LIB
 
+include($$(AOS_KERNEL_ROOT)/projects/aos-kernel-dynamic-lib-install.pri)
+
 
 HEADERS += \
     Control/csformcard.h \
@@ -29,6 +31,9 @@ HEADERS += \
     Communication/csappconnector.h \
     Communication/cslocalclient.h \
     Communication/cslocalserver.h \
+    ArtWare/csartware.h \
+    ArtWare/csbatteryartware.h \
+    ArtWare/cscarrierartware.h \
     Animation/csanimation.h \
     Animation/cswaitanimation.h \
     csutils_global.h \
@@ -52,7 +57,11 @@ SOURCES += \
     Communication/csappconnector.cpp \
     Communication/cslocalclient.cpp \
     Communication/cslocalserver.cpp \
+    ArtWare/csartware.cpp   \
+    ArtWare/csbatteryartware.cpp    \
+    ArtWare/cscarrierartware.cpp    \
     Animation/csanimation.cpp   \
     Animation/cswaitanimation.cpp
 
 
+copyDynamicLibrary(csutils)

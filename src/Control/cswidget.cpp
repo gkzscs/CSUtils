@@ -15,7 +15,8 @@ CSWidget::CSWidget(QWidget *parent)
 
 CSWidget::~CSWidget()
 {
-    if (_layout) _layout->deleteLater();
+//    if (_layout) _layout->deleteLater();
+    _layout = nullptr;
 }
 
 QPoint CSWidget::globalPos() const

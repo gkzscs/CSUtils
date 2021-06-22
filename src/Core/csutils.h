@@ -12,6 +12,10 @@ class QLabel;
 namespace cs
 {   // Start of namespace `cs`
 
+/***************************************** Macros *************************************************/
+#define DELETE_Q_POINTER(x)    do { if (x) x->deleteLater(); x = nullptr; } while (0)
+#define DELETE_Q_CONTAINER(x)  do { qDeleteAll(x); x.clear(); } while (0)
+
 #define UNIQUE(name)    \
     QSharedMemory sm(name);   \
     if (sm.attach()) return -1; \
@@ -41,6 +45,7 @@ public:
     static int calcProperValue(int oldValue, const QSize &originSize, const QSize &nowSize, bool horizontal = true);
     static QSize calcProperValue(QSize oldSize, const QSize &originSize, const QSize &nowSize);
     static QRect calcProperValue(QRect oldRect, const QSize &originSize, const QSize &nowSize);
+    static QMargins calcProperValue(QMargins oldMargins, const QSize &originSize, const QSize &nowSize);
 
     /************************************ Image ****************************************/
     static void setScaledPixmap(QLabel *lab, const QPixmap &pix, Qt::AspectRatioMode aspectMode = Qt::KeepAspectRatio);

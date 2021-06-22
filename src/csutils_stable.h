@@ -21,6 +21,7 @@
 #include <QRadioButton>
 #include <QGroupBox>
 #include <QToolBar>
+#include <QMessageBox>
 
 // Menu
 #include <QMenu>
@@ -130,6 +131,11 @@
 #include <Control/csfoldbox.h>
 #include <Control/cspairctrl.h>
 #include <Control/csswitchbutton.h>
+
+// Art ware
+#include <ArtWare/csartware.h>
+#include <ArtWare/csbatteryartware.h>
+#include <ArtWare/cscarrierartware.h>
 
 // Animation
 #include <Animation/csanimation.h>

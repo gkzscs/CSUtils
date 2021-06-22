@@ -1,4 +1,4 @@
-#ifndef CSLocalServer_H
+﻿#ifndef CSLocalServer_H
 #define CSLocalServer_H
 
 #include "csipchelper.h"
@@ -24,6 +24,9 @@ public:
     void bootApp(const QString &appUrl);
     void sendCommand(const QString &appName, CSIpcHelper::Command cmd);
     void sendCommand2AllClients(CSIpcHelper::Command cmd);
+
+signals:
+    void receivedMsgSignal(const QString &msg);       // 收到了消息
 
 protected:
     void initMember();

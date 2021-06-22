@@ -16,11 +16,6 @@ CSLayout::CSLayout(CSWidget *wgt)
 CSLayout::~CSLayout()
 {
     _wgt = nullptr;
-
-//    qDeleteAll(_listOldItems);
-    // To modify
-    _listOldItems.clear();
-    _listOldItems.clear();
 }
 
 // Can not be called by user, you should use `CSWidget::setLayout()`
@@ -49,6 +44,17 @@ QMargins CSLayout::margins() const
     return _margins;
 }
 
+/**
+ * @brief Must over write functions about release memory of items, or the process would crash,
+ * clear old item list before refresh
+ */
+void CSLayout::deepClear()
+{
+    _listOldItems.clear();
+
+    CSContainer<QWidget>::deepClear();
+}
+
 void CSLayout::actualRefresh()
 {
     // Clear layout
@@ -65,7 +71,7 @@ void CSLayout::clearLayout()
 {
     for (auto item : _listOldItems)
     {
-        if (_listItems.contains(item)) continue;
+        if (!item || _listItems.contains(item)) continue;
         item->setParent(nullptr);
         item->setHidden(true);
     }

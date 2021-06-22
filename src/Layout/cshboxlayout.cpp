@@ -32,6 +32,8 @@ void CSHBoxLayout::resetLayout()
 
     for (auto item : _listItems)
     {
+        if (!item) continue;
+
         item->setParent(_wgt);
         item->setHidden(false);
         item->setGeometry(x, y, item->width(), h);
@@ -54,7 +56,11 @@ void CSHBoxLayout::resizeSlot(QObject *s, QResizeEvent *e)
     if (s != _wgt || !_wgt || !e || e->oldSize().height() == e->size().height()) return;
 
     const int h = e->size().height() - _margins.top() - _margins.bottom();
-    for (auto item : _listItems) item->resize(item->width(), h);
+    for (auto item : _listItems)
+    {
+        if (!item) continue;
+        item->resize(item->width(), h);
+    }
 }
 
 }   // End of `cs`

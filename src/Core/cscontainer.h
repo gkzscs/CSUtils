@@ -26,6 +26,7 @@ public:
     T *at(int idx) const;
     int indexOf(T *item) const;
     void clear();
+    void deepClear();
 
     int count() const;
     bool contains(T *item) const;

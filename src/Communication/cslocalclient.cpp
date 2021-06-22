@@ -98,8 +98,9 @@ void CSLocalClient::showWindow()
 {
     if (!_wnd) return;
 
-    _wnd->setWindowFlag(Qt::WindowStaysOnTopHint);
-    _wnd->setWindowModality(Qt::ApplicationModal);
+//    _wnd->setWindowFlag(Qt::WindowStaysOnTopHint);
+//    _wnd->setWindowModality(Qt::ApplicationModal);
+    _wnd->activateWindow();
     _wnd->showNormal();
 }
 

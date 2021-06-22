@@ -125,8 +125,19 @@ void CSScrollArea::mouseReleaseEvent(QMouseEvent *event)
 
 void CSScrollArea::wheelEvent(QWheelEvent *event)
 {
-    int offY = event->delta();
-    moveWidget(_wgt->x(), _wgt->y()+offY);
+    int offset = event->delta();
+
+    // Move widget
+    if (_showVerticalBar && _wgt && _wgt->height() > height())
+    {
+        moveWidget(_wgt->x(), _wgt->y()+offset);
+    }
+    // Only when the vertical bar is hidden will it executes, move widget on horizontal direction
+    else if (_showHorizontalBar && _wgt && _wgt->width() > width())
+    {
+        moveWidget(_wgt->x()+offset, _wgt->y());
+    }
+
 }
 
 void CSScrollArea::updateWidgetPosition(const QPoint &oldPos, const QPoint &newPos)

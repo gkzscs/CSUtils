@@ -23,7 +23,8 @@ public:
         Show,
         Hide,
         Boot,
-        Exit
+        Exit,
+        Reboot
     };
 
 public:
