@@ -16,11 +16,9 @@ public:
 
     void setTextVisible(bool flag);
     void setValue(int v);
-    void setColor(const QColor &color);
 
     bool textVisible() const;
     int value() const;
-    QColor color() const;
 
 protected:
     void drawAll(QPainter &p) override;
@@ -30,7 +28,6 @@ protected:
 
 private:
     void initMember();
-    void initUI();
 
 private:
     QRect calcBodyRect() const;
@@ -40,7 +37,6 @@ private:
 private:
     bool _textVisible;
     int _value;
-    QColor _color;
 
 };
 

@@ -22,6 +22,10 @@
 #include <QGroupBox>
 #include <QToolBar>
 #include <QMessageBox>
+#include <QTreeWidget>
+#include <QTableWidget>
+#include <QTreeWidgetItem>
+#include <QTableWidgetItem>
 
 // Menu
 #include <QMenu>
@@ -124,18 +128,28 @@
 #include <Layout/csgridlayout.h>
 
 // Control
-#include <Control/cswidget.h>
-#include <Control/csline.h>
+#include <Control/Base/cstitlebar.h>
+#include <Control/Base/csadjustablewgt.h>
+#include <Control/Base/csmessagebox.h>
+#include <Control/Base/cswidget.h>
+#include <Control/Base/csmainwnd.h>
 #include <Control/csscrollarea.h>
 #include <Control/csformcard.h>
 #include <Control/csfoldbox.h>
 #include <Control/cspairctrl.h>
-#include <Control/csswitchbutton.h>
+#include <Control/cstree.h>
+#include <Control/cstreeitem.h>
 
 // Art ware
 #include <ArtWare/csartware.h>
+#include <ArtWare/csline.h>
+#include <ArtWare/csswitchbutton.h>
 #include <ArtWare/csbatteryartware.h>
 #include <ArtWare/cscarrierartware.h>
+#include <ArtWare/csacceleratorartware.h>
+#include <ArtWare/cssectorlinkartware.h>
+#include <ArtWare/cslinkqualityartware.h>
+#include <ArtWare/cswindartware.h>
 
 // Animation
 #include <Animation/csanimation.h>

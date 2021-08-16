@@ -100,6 +100,9 @@ void CSScrollArea::paintEvent(QPaintEvent *event)
     p.setRenderHint(QPainter::Antialiasing);
     if (_showHorizontalBar && _wgt && _wgt->width() > width()) drawHorizontalBar(p);
     if (_showVerticalBar && _wgt && _wgt->height() > height()) drawVerticalBar(p);
+
+    // Update the position
+    updateWidgetPosition();
 }
 
 void CSScrollArea::mousePressEvent(QMouseEvent *event)
@@ -137,7 +140,18 @@ void CSScrollArea::wheelEvent(QWheelEvent *event)
     {
         moveWidget(_wgt->x()+offset, _wgt->y());
     }
+}
 
+/**
+ * @brief Update the position of widgets, when resized the `_wgt` or scroll area itself
+ */
+void CSScrollArea::updateWidgetPosition()
+{
+    // Reset the position of widget
+    if (_wgt && _wgt->width() <= width() && _wgt->height() <= height())
+    {
+        moveWidget(0, 0);
+    }
 }
 
 void CSScrollArea::updateWidgetPosition(const QPoint &oldPos, const QPoint &newPos)

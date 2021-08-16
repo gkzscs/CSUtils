@@ -1,6 +1,6 @@
 #include "cslayout.h"
 #include "Core/csappevent.h"
-#include "Control/cswidget.h"
+#include "Control/Base/cswidget.h"
 
 
 namespace cs

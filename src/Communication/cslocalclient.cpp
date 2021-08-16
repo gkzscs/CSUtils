@@ -4,6 +4,7 @@
 #include <QProcess>
 #include <QThread>
 #include <QLocalSocket>
+#include <Windows.h>
 
 
 namespace cs
@@ -97,11 +98,15 @@ void CSLocalClient::hideWindow()
 void CSLocalClient::showWindow()
 {
     if (!_wnd) return;
+    if (_wnd->isMinimized()) _wnd->showNormal();
 
-//    _wnd->setWindowFlag(Qt::WindowStaysOnTopHint);
-//    _wnd->setWindowModality(Qt::ApplicationModal);
+    // 设置窗口置顶
+    ::SetWindowPos(HWND(_wnd->winId()), HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
+    ::SetWindowPos(HWND(_wnd->winId()), HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
+
+    // 显示窗口
+    _wnd->show();
     _wnd->activateWindow();
-    _wnd->showNormal();
 }
 
 void CSLocalClient::exitApp()

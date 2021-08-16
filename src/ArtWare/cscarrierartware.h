@@ -15,10 +15,8 @@ public:
     CSCarrierArtWare(QWidget *parent = nullptr);
 
     void setIntensity(int intensity);
-    void setColor(const QColor &color);
 
     int intensity() const;
-    QColor color() const;
 
 protected:
     void drawAll(QPainter &p) override;
@@ -33,7 +31,6 @@ private:
 
 private:
     int _intensity;
-    QColor _color;
 
 };
 

@@ -12,7 +12,6 @@ CSBatteryArtWare::CSBatteryArtWare(QWidget *parent)
     : CSArtWare(parent)
 {
     initMember();
-    initUI();
 }
 
 void CSBatteryArtWare::setTextVisible(bool flag)
@@ -30,12 +29,6 @@ void CSBatteryArtWare::setValue(int v)
     update();
 }
 
-void CSBatteryArtWare::setColor(const QColor &color)
-{
-    _color = color;
-    update();
-}
-
 bool CSBatteryArtWare::textVisible() const
 {
     return _textVisible;
@@ -44,11 +37,6 @@ bool CSBatteryArtWare::textVisible() const
 int CSBatteryArtWare::value() const
 {
     return _value;
-}
-
-QColor CSBatteryArtWare::color() const
-{
-    return _color;
 }
 
 void CSBatteryArtWare::drawAll(QPainter &p)
@@ -66,6 +54,7 @@ void CSBatteryArtWare::drawBody(QPainter &p)
     QString strValue = QString::number(_value) + "%";
 
     p.save();
+    scalePainter(p);
     // Draw border
     p.setPen(_color);
     p.drawRoundedRect(rect, radius, radius);
@@ -85,6 +74,7 @@ void CSBatteryArtWare::drawHead(QPainter &p)
     auto rect = calcHeadRect();
 
     p.save();
+    scalePainter(p);
     p.setPen(Qt::transparent);
     p.setBrush(_color);
     p.drawRoundedRect(rect, radius, radius);
@@ -96,6 +86,7 @@ void CSBatteryArtWare::drawBackground(QPainter &p)
     auto rect = calcBgRect();
 
     p.save();
+    scalePainter(p);
     p.setPen(Qt::transparent);
     p.setBrush(_color);
     p.drawRoundedRect(rect, radius, radius);
@@ -106,35 +97,26 @@ void CSBatteryArtWare::initMember()
 {
     _textVisible = true;
     _value = 0;
-    _color = Qt::black;
-}
-
-void CSBatteryArtWare::initUI()
-{
-    // Set attribute
-    resize(50, 20);
-    autoSetPaintAreaSize();
 }
 
 QRect CSBatteryArtWare::calcBodyRect() const
 {
-    auto rect = paintAreaRect();
-    int w = rect.width() * 97 / 100;
-    int h = rect.height();
-    int x = (rect.width() - w) / 2 + rect.x();
-    int y = (rect.height() - h) / 2 + rect.y();
+    int w = 32;
+    int h = 16;
+    int x = (_sizeOrg.width() - w) / 2;
+    int y = (_sizeOrg.height() - h) / 2;
 
     return QRect(x, y, w, h);
 }
 
 QRect CSBatteryArtWare::calcHeadRect() const
 {
-    auto rect = paintAreaRect();
     auto rectBody = calcBodyRect();
-    int w = rect.width() - rectBody.width();
-    int h = rectBody.height() / 3;
+
     int x = rectBody.x() + rectBody.width();
-    int y = (rectBody.height() - h) / 2 + rectBody.y();
+    int y = rectBody.y() + rectBody.height() / 3;
+    int w = 2;
+    int h = rectBody.height() - rectBody.height() / 3 * 2;
 
     return QRect(x, y, w, h);
 }
@@ -142,10 +124,10 @@ QRect CSBatteryArtWare::calcHeadRect() const
 QRect CSBatteryArtWare::calcBgRect() const
 {
     auto rectBody = calcBodyRect();
-    int w = rectBody.width() * _value / 100;
-    int h = rectBody.height();
-    int x = rectBody.x();
-    int y = rectBody.y();
+    int w = (rectBody.width() - 2) * _value / 100;
+    int h = rectBody.height() - 2;
+    int x = rectBody.x() + 1;
+    int y = rectBody.y() + 1;
 
     return QRect(x, y, w, h);
 }

@@ -243,6 +243,19 @@ QString CSUtils::convert2Html(const QString &str)
     return html;
 }
 
+/**
+ * @brief Convert `QColor` to string, which is constructed by red, gree, blue and alpha value
+ * @param color
+ * @return
+ */
+QString CSUtils::convertColor2RgbaStr(const QColor &color)
+{
+    QString str("rgba(%1, %2, %3, %4)");
+    str = str.arg(color.red()).arg(color.green()).arg(color.blue()).arg(color.alpha());
+
+    return str;
+}
+
 bool CSUtils::keyIsNumber(int key)
 {
     bool res = (key >= 0x30 && key <= 0x39);

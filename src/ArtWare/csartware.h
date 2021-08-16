@@ -24,9 +24,9 @@ class CSUTILS_EXPORT CSArtWare : public QWidget
 public:
     CSArtWare(QWidget *parent = nullptr);
 
-    void setPaintAreaSize(const QSize &s);
+    void setColor(const QColor &color);
 
-    QSize paintAreaSize() const;
+    QColor color() const;
 
 protected:
     void paintEvent(QPaintEvent *event) override;
@@ -35,16 +35,15 @@ protected:
     virtual void drawAll(QPainter &p) = 0;
 
 protected:
-    virtual QRect paintAreaRect() const;
-
-    void autoSetPaintAreaSize();
+    void scalePainter(QPainter &p);
 
 private:
     void initMember();
     void initUI();
 
 protected:
-    QSize _sizePaintArea;
+    QSize _sizeOrg;
+    QColor _color;
 
 };
 

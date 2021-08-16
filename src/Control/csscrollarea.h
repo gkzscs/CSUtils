@@ -1,7 +1,7 @@
 #ifndef CSSCROLLAREA_H
 #define CSSCROLLAREA_H
 
-#include "Control/cswidget.h"
+#include "Control/Base/cswidget.h"
 
 
 namespace cs
@@ -13,7 +13,7 @@ class CSUTILS_EXPORT CSScrollArea : public CSWidget
 
 public:
     CSScrollArea(QWidget *parent = nullptr);
-    virtual ~CSScrollArea() override;
+    ~CSScrollArea() override;
 
     void setWidget(QWidget *wgt);
     QWidget *getWidget() const;
@@ -28,13 +28,14 @@ protected:
     void drawVerticalBar(QPainter &p);
 
 protected:
-    virtual void paintEvent(QPaintEvent *event) override;
-    virtual void mousePressEvent(QMouseEvent *event) override;
-    virtual void mouseMoveEvent(QMouseEvent *event) override;
-    virtual void mouseReleaseEvent(QMouseEvent *event) override;
-    virtual void wheelEvent(QWheelEvent *event) override;
+    void paintEvent(QPaintEvent *event) override;
+    void mousePressEvent(QMouseEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent *event) override;
+    void wheelEvent(QWheelEvent *event) override;
 
 protected:
+    void updateWidgetPosition();
     void updateWidgetPosition(const QPoint &oldPos, const QPoint &newPos);
     QRect getProgressRect(bool isHorizontal) const;
     QRect getBarRect(bool isHorizontal) const;

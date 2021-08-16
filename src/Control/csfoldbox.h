@@ -1,7 +1,7 @@
 #ifndef CSFoldBox_H
 #define CSFoldBox_H
 
-#include "Control/cswidget.h"
+#include "Control/Base/cswidget.h"
 
 
 namespace cs

@@ -23,20 +23,9 @@ void CSCarrierArtWare::setIntensity(int intensity)
     update();
 }
 
-void CSCarrierArtWare::setColor(const QColor &color)
-{
-    _color = color;
-    update();
-}
-
 int CSCarrierArtWare::intensity() const
 {
     return _intensity;
-}
-
-QColor CSCarrierArtWare::color() const
-{
-    return _color;
 }
 
 void CSCarrierArtWare::drawAll(QPainter &p)
@@ -47,6 +36,7 @@ void CSCarrierArtWare::drawAll(QPainter &p)
 void CSCarrierArtWare::drawBody(QPainter &p)
 {
     p.save();
+    scalePainter(p);
     p.setPen(Qt::transparent);
     p.setBrush(_color);
 
@@ -63,18 +53,18 @@ void CSCarrierArtWare::initMember()
 {
     _intensity = 5;
     _color = Qt::white;
+    _sizeOrg = QSize(50, 40);
 }
 
 void CSCarrierArtWare::initUI()
 {
     // Set attribute
-    resize(50, 40);
-    autoSetPaintAreaSize();
+    resize(_sizeOrg);
 }
 
 QRect CSCarrierArtWare::calcBlockRect(int intensity)
 {
-    auto rect = paintAreaRect();
+    auto rect = QRect(1, 1, _sizeOrg.width()-2, _sizeOrg.height()-2);
     int space = 1;
     int w = (rect.width() + space) / maxIntensity - space;
     int h = rect.height() * intensity / maxIntensity;

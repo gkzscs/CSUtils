@@ -13,6 +13,7 @@ namespace cs
 {   // Start of namespace `cs`
 
 /***************************************** Macros *************************************************/
+#define DELETE_POINTER(x)      do { if (x) delete x; x = nullptr; } while (0)
 #define DELETE_Q_POINTER(x)    do { if (x) x->deleteLater(); x = nullptr; } while (0)
 #define DELETE_Q_CONTAINER(x)  do { qDeleteAll(x); x.clear(); } while (0)
 
@@ -56,6 +57,7 @@ public:
 
     /********************************** `Algorithm` ***********************************/
     static QString convert2Html(const QString &str);
+    static QString convertColor2RgbaStr(const QColor &color);
 
     static bool keyIsNumber(int key);
     static bool keyIsAlphabet(int key);

@@ -9,17 +9,18 @@ CSArtWare::CSArtWare(QWidget *parent)
     : QWidget(parent)
 {
     initMember();
+    initUI();
 }
 
-void CSArtWare::setPaintAreaSize(const QSize &s)
+void CSArtWare::setColor(const QColor &color)
 {
-    _sizePaintArea = s;
+    _color = color;
     update();
 }
 
-QSize CSArtWare::paintAreaSize() const
+QColor CSArtWare::color() const
 {
-    return _sizePaintArea;
+    return _color;
 }
 
 void CSArtWare::paintEvent(QPaintEvent *e)
@@ -39,32 +40,28 @@ void CSArtWare::drawAll(QPainter &p)
     // To do
 }
 
-QRect CSArtWare::paintAreaRect() const
+/**
+ * @brief Scale the painter by current size
+ * @param p
+ */
+void CSArtWare::scalePainter(QPainter &p)
 {
-    int w = _sizePaintArea.width();
-    int h = _sizePaintArea.height();
-    int x = (width() - w) / 2;
-    int y = (height() - h) / 2;
+    double fw = static_cast<double>(width()) / _sizeOrg.width();
+    double fh = static_cast<double>(height()) / _sizeOrg.height();
 
-    return QRect(x, y, w, h);
-}
-
-void CSArtWare::autoSetPaintAreaSize()
-{
-    const int margin = 1;
-    setPaintAreaSize(QSize(width()-margin*2, height()-margin*2));
+    p.scale(fw, fh);
 }
 
 void CSArtWare::initMember()
 {
-    _sizePaintArea = QSize(40, 40);
+    _sizeOrg = QSize(40, 40);
+    _color = Qt::white;
 }
 
 void CSArtWare::initUI()
 {
     // Set attribute
-    resize(40, 40);
-    autoSetPaintAreaSize();
+    resize(_sizeOrg);
 }
 
 }   // `cs`
