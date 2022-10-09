@@ -38,7 +38,6 @@ void CSFormCard::initMember()
 
 void CSFormCard::initUI()
 {
-    setHidden(false);
     resize(330, 300);
     setContentsMargins(20, 10, 10, 10);
 

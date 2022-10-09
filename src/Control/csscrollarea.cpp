@@ -100,6 +100,9 @@ void CSScrollArea::paintEvent(QPaintEvent *event)
     p.setRenderHint(QPainter::Antialiasing);
     if (_showHorizontalBar && _wgt && _wgt->width() > width()) drawHorizontalBar(p);
     if (_showVerticalBar && _wgt && _wgt->height() > height()) drawVerticalBar(p);
+
+    // Update the position
+    updateWidgetPosition();
 }
 
 void CSScrollArea::mousePressEvent(QMouseEvent *event)
@@ -125,8 +128,30 @@ void CSScrollArea::mouseReleaseEvent(QMouseEvent *event)
 
 void CSScrollArea::wheelEvent(QWheelEvent *event)
 {
-    int offY = event->delta();
-    moveWidget(_wgt->x(), _wgt->y()+offY);
+    int offset = event->delta();
+
+    // Move widget
+    if (_showVerticalBar && _wgt && _wgt->height() > height())
+    {
+        moveWidget(_wgt->x(), _wgt->y()+offset);
+    }
+    // Only when the vertical bar is hidden will it executes, move widget on horizontal direction
+    else if (_showHorizontalBar && _wgt && _wgt->width() > width())
+    {
+        moveWidget(_wgt->x()+offset, _wgt->y());
+    }
+}
+
+/**
+ * @brief Update the position of widgets, when resized the `_wgt` or scroll area itself
+ */
+void CSScrollArea::updateWidgetPosition()
+{
+    // Reset the position of widget
+    if (_wgt && _wgt->width() <= width() && _wgt->height() <= height())
+    {
+        moveWidget(0, 0, false);
+    }
 }
 
 void CSScrollArea::updateWidgetPosition(const QPoint &oldPos, const QPoint &newPos)
@@ -143,9 +168,9 @@ void CSScrollArea::updateWidgetPosition(const QPoint &oldPos, const QPoint &newP
     }
 }
 
-void CSScrollArea::moveWidget(int x, int y)
+void CSScrollArea::moveWidget(int x, int y, bool refresh)
 {
-    if (!_wgt) return;
+    if (!_wgt || _wgt->pos() == QPoint(x, y)) return;
 
     const int minX = width() - _wgt->width();
     const int minY = height() - _wgt->height();
@@ -157,7 +182,7 @@ void CSScrollArea::moveWidget(int x, int y)
 
     _wgt->move(x, y);
     // Must add `update()` function, or it would not redraw
-    update();
+    if (refresh) update();
 }
 
 void CSScrollArea::moveWidget(const QPoint &pos)

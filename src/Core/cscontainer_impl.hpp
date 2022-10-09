@@ -1,5 +1,6 @@
 #ifdef CSCONTAINER_IMPL_HPP
 #include "cscontainer.h"
+#include "csutils.h"
 
 
 namespace cs
@@ -8,7 +9,8 @@ namespace cs
 template <typename T>
 CSContainer<T>::CSContainer()
 {
-    _flag = false;
+//    _flag = false;
+    _batchOn = false;
 }
 
 template <typename T>
@@ -16,8 +18,7 @@ CSContainer<T>::~CSContainer()
 {
     for (auto item : _listItems) dealRemove(item);
 
-    qDeleteAll(_listItems);
-    _listItems.clear();
+    DELETE_Q_CONTAINER_POINTERS(_listItems);
 }
 
 template <typename T>
@@ -28,6 +29,18 @@ bool CSContainer<T>::add(T *item)
 
     _listItems.append(item);
     dealAdd(item);
+    refresh();
+
+    return true;
+}
+
+template <typename T>
+bool CSContainer<T>::add(const QList<T *> &listItems)
+{
+    if (listItems.isEmpty()) return false;
+
+    _listItems.append(listItems);
+    dealAdd(listItems);
     refresh();
 
     return true;
@@ -132,11 +145,31 @@ int CSContainer<T>::indexOf(T *item) const
 }
 
 template <typename T>
+void CSContainer<T>::clearList()
+{
+    _listItems.clear();
+}
+
+template <typename T>
 void CSContainer<T>::clear()
 {
     for (auto item : _listItems) dealRemove(item);
 
     _listItems.clear();
+
+    refresh();
+}
+
+template <typename T>
+void CSContainer<T>::deepClear()
+{
+    for (auto item : _listItems) dealRemove(item);
+
+    DELETE_Q_CONTAINER_POINTERS(_listItems);
+    // To modify
+//    qDeleteAll(_listItems);
+    _listItems.clear();
+
     refresh();
 }
 
@@ -165,8 +198,22 @@ QList<T *> CSContainer<T>::allItems() const
 }
 
 template <typename T>
+void CSContainer<T>::beginBatch()
+{
+    _batchOn = true;
+}
+
+template <typename T>
+void CSContainer<T>::endBatch()
+{
+    _batchOn = false;
+    refresh();
+}
+
+template <typename T>
 void CSContainer<T>::refresh()
 {
+    if (_batchOn) return;
     actualRefresh();
 
 //    const int duration = 20;
@@ -200,6 +247,12 @@ template <typename T>
 void CSContainer<T>::dealAdd(T *item)
 {
     Q_UNUSED(item)
+}
+
+template <typename T>
+void CSContainer<T>::dealAdd(const QList<T *> &listItems)
+{
+    Q_UNUSED(listItems)
 }
 
 template <typename T>

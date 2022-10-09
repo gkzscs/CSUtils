@@ -15,15 +15,21 @@ class CSUTILS_EXPORT CSLayout : public CSContainer<QWidget>
 
 public:
     CSLayout(CSWidget *wgt = nullptr);
-    virtual ~CSLayout() override;
+    ~CSLayout() override;
 
     void setWidget(CSWidget *wgt);
     void setMargins(QMargins m);
     void setMargins(int left, int top, int right, int bottom);
     QMargins margins() const;
 
+    // Overwrite the function of deep clear
+    void deepClear();
+
 protected:
-    virtual void actualRefresh() override;
+    void dealAdd(QWidget *item) override;
+    void dealAdd(const QList<QWidget *> &listItems) override;
+    void dealRemove(QWidget *item) override;
+    void actualRefresh() override;
     virtual void clearLayout();
     virtual void resetLayout() = 0;
 

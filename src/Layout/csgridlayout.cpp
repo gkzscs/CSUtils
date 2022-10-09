@@ -1,5 +1,5 @@
 #include "csgridlayout.h"
-#include "Control/cswidget.h"
+#include "Control/Base/cswidget.h"
 
 
 namespace cs
@@ -43,6 +43,8 @@ void CSGridLayout::resetLayout()
     if (!_wgt) return;
     for (auto item : _listItems)
     {
+        if (!item) continue;
+
         item->setParent(_wgt);
         item->setHidden(false);
     }
@@ -72,7 +74,10 @@ void CSGridLayout::resizeUI()
 
     for (int i = 0, n = _listItems.count(); i < n; ++i)
     {
-        _listItems.at(i)->setGeometry(x, y, w, h);
+        auto item = _listItems.at(i);
+        if (!item) continue;
+
+        item->setGeometry(x, y, w, h);
 
         x += w + _hSpace;
         if ((i+1) % _colCount == 0)

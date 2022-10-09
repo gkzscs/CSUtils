@@ -20,7 +20,7 @@ public:
     QPair<int, int> spaces() const;
 
 protected:
-    virtual void resetLayout() override;
+    void resetLayout() override;
 
 protected:
     void initMember();
@@ -29,7 +29,7 @@ protected:
     void resizeUI();
 
 protected slots:
-    virtual void resizeSlot(QObject *s, QResizeEvent *e) override;
+    void resizeSlot(QObject *s, QResizeEvent *e) override;
 
 protected:
     int _rowCount;

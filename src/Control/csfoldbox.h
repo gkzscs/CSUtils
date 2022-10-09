@@ -1,7 +1,7 @@
 #ifndef CSFoldBox_H
 #define CSFoldBox_H
 
-#include "Control/cswidget.h"
+#include "Control/Base/cswidget.h"
 
 
 namespace cs
@@ -28,7 +28,8 @@ protected:
     void initUI();
 
 protected:
-    virtual void mousePressEvent(QMouseEvent *e) override;
+    void mousePressEvent(QMouseEvent *e) override;
+//    void mouseReleaseEvent(QMouseEvent *e) override;
 
 signals:
     void foldChangeSignal(bool fold);
@@ -39,6 +40,7 @@ protected:
     QWidget *_body;
 
     bool _fold;
+//    bool _pressed;
 
 };
 

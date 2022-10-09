@@ -15,7 +15,7 @@ class CSUTILS_EXPORT CSLocalClient : public QObject
 
 public:
     CSLocalClient(QWidget *wnd);
-    virtual ~CSLocalClient() override;
+    ~CSLocalClient() override;
 
     void setServerName(const QString &name);
     bool connect2Server();
@@ -24,7 +24,7 @@ public:
     QLocalSocket *socket() const;
 
     void sendCommand(const QString &appName, CSIpcHelper::Command cmd);
-
+    void sendCommand(const QString &appName);
 protected:
     void initMember();
     void initSignalSlot();

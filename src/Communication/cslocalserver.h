@@ -1,4 +1,4 @@
-#ifndef CSLocalServer_H
+﻿#ifndef CSLocalServer_H
 #define CSLocalServer_H
 
 #include "csipchelper.h"
@@ -16,7 +16,7 @@ class CSUTILS_EXPORT CSLocalServer : public QObject
 
 public:
     CSLocalServer(QObject *parent = nullptr);
-    virtual ~CSLocalServer() override;
+    ~CSLocalServer() override;
 
     QLocalServer *server() const;
     QList<QLocalSocket *> clientList() const;
@@ -24,6 +24,9 @@ public:
     void bootApp(const QString &appUrl);
     void sendCommand(const QString &appName, CSIpcHelper::Command cmd);
     void sendCommand2AllClients(CSIpcHelper::Command cmd);
+
+signals:
+    void receivedMsgSignal(const QString &msg);       // 收到了消息
 
 protected:
     void initMember();

@@ -5,6 +5,9 @@
 #include <QThread>
 #include <QLocalSocket>
 
+#ifdef Q_OS_WIN
+#include <Windows.h>
+#endif
 
 namespace cs
 {
@@ -75,6 +78,11 @@ void CSLocalClient::sendCommand(const QString &appName, CSIpcHelper::Command cmd
     CSIpcHelper::instance()->sendCommand(_client, appName, cmd);
 }
 
+void CSLocalClient::sendCommand(const QString &appName)
+{
+    CSIpcHelper::instance()->sendCommand(_client, appName);
+}
+
 void CSLocalClient::initMember()
 {
     _client = new QLocalSocket(this);
@@ -97,10 +105,14 @@ void CSLocalClient::hideWindow()
 void CSLocalClient::showWindow()
 {
     if (!_wnd) return;
+    if (_wnd->isMinimized()) _wnd->showNormal();
 
-    _wnd->setWindowFlag(Qt::WindowStaysOnTopHint);
-    _wnd->setWindowModality(Qt::ApplicationModal);
-    _wnd->showNormal();
+    // 显示窗口
+    _wnd->show();
+    _wnd->activateWindow();
+
+    // Set the attribute of window
+    cs::CSUtils::top_window(_wnd);
 }
 
 void CSLocalClient::exitApp()

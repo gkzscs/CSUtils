@@ -1,5 +1,5 @@
 #include "csvboxlayout.h"
-#include "Control/cswidget.h"
+#include "Control/Base/cswidget.h"
 
 
 namespace cs
@@ -32,6 +32,8 @@ void CSVBoxLayout::resetLayout()
 
     for (auto item : _listItems)
     {
+        if (!item) continue;
+
         item->setParent(_wgt);
         item->setGeometry(x, y, w, item->height());
         item->setHidden(false);
@@ -54,7 +56,11 @@ void CSVBoxLayout::resizeSlot(QObject *s, QResizeEvent *e)
     if (s != _wgt || !_wgt || !e || e->oldSize().width() == e->size().width()) return;
 
     const int w = e->size().width() - _margins.left() - _margins.right();
-    for (auto item : _listItems) item->resize(w, item->height());
+    for (auto item : _listItems)
+    {
+        if (!item) continue;
+        item->resize(w, item->height());
+    }
 }
 
 }   // End of namespace `cs`

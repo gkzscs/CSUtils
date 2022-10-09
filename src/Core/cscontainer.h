@@ -13,9 +13,10 @@ class CSContainer : public QObject
 {
 public:
     CSContainer();
-    virtual ~CSContainer() override;
+    ~CSContainer() override;
 
     bool add(T *item);
+    bool add(const QList<T *> &listItems);
     bool insert(int idx, T *item);
     bool remove(T *item);
     bool remove(int idx);
@@ -25,23 +26,34 @@ public:
     bool swap(int idx1, int idx2);
     T *at(int idx) const;
     int indexOf(T *item) const;
+    void clearList();
     void clear();
+    void deepClear();
 
     int count() const;
     bool contains(T *item) const;
     bool isEmpty() const;
     QList<T *> allItems() const;
 
+    /**
+     * Control batch processing, you can optimize your code by using batch, use `beginBatch()` before doing any operation,
+     * and `endBatch()` to execute refreshing operation right now.
+     */
+    void beginBatch();
+    void endBatch();
+
 protected:
     virtual void refresh();
     virtual void actualRefresh();
     virtual void dealAdd(T *item);
+    virtual void dealAdd(const QList<T *> &listItems);
     virtual void dealRemove(T *item);
 
 protected:
     QList<T *> _listItems;
     QTime _lastRefresh;
-    bool _flag;
+//    bool _flag;
+    bool _batchOn;
 
 };
 

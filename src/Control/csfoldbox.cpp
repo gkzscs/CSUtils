@@ -19,7 +19,6 @@ void CSFoldBox::setFold(bool flag)
 
     _fold = flag;
     emit foldChangeSignal(flag);
-//    emit CSAppEvent::instance()->foldChangeSignal(this, this, flag);
 }
 
 void CSFoldBox::setHead(QWidget *head)
@@ -55,6 +54,7 @@ QWidget *CSFoldBox::body() const
 
 void CSFoldBox::initMember()
 {
+//    _pressed = false;
     _fold = false;
     _head = nullptr;
     _body = nullptr;
@@ -69,6 +69,20 @@ void CSFoldBox::initUI()
     // Set layout
     _vl->setSpace(0);
 }
+
+//void CSFoldBox::mousePressEvent(QMouseEvent *e)
+//{
+//    auto pos = e->pos();
+
+//    if (_head->geometry().contains(pos))
+//    {
+//        _pressed = true;
+//    }
+//    else
+//    {
+//        _pressed = false;
+//    }
+//}
 
 void CSFoldBox::mousePressEvent(QMouseEvent *e)
 {

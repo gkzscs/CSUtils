@@ -1,6 +1,6 @@
 #include "cslayout.h"
 #include "Core/csappevent.h"
-#include "Control/cswidget.h"
+#include "Control/Base/cswidget.h"
 
 
 namespace cs
@@ -16,11 +16,6 @@ CSLayout::CSLayout(CSWidget *wgt)
 CSLayout::~CSLayout()
 {
     _wgt = nullptr;
-
-//    qDeleteAll(_listOldItems);
-    // To modify
-    _listOldItems.clear();
-    _listOldItems.clear();
 }
 
 // Can not be called by user, you should use `CSWidget::setLayout()`
@@ -49,6 +44,44 @@ QMargins CSLayout::margins() const
     return _margins;
 }
 
+/**
+ * @brief Must over write functions about release memory of items, or the process would crash,
+ * clear old item list before refresh
+ */
+void CSLayout::deepClear()
+{
+    _listOldItems.clear();
+
+    CSContainer<QWidget>::deepClear();
+}
+
+void CSLayout::dealAdd(QWidget *item)
+{
+    auto wgt = dynamic_cast<cs::CSWidget *>(item);
+    if (!wgt) return;
+
+    connect(wgt, &cs::CSWidget::resizeSignal, this, &cs::CSLayout::resizeSlot);
+}
+
+void CSLayout::dealAdd(const QList<QWidget *> &listItems)
+{
+    for (auto item : listItems)
+    {
+        auto wgt = dynamic_cast<cs::CSWidget *>(item);
+        if (!wgt) return;
+
+        connect(wgt, &cs::CSWidget::resizeSignal, this, &cs::CSLayout::resizeSlot);
+    }
+}
+
+void CSLayout::dealRemove(QWidget *item)
+{
+    auto wgt = dynamic_cast<cs::CSWidget *>(item);
+    if (!wgt) return;
+
+    disconnect(wgt, &cs::CSWidget::resizeSignal, this, &cs::CSLayout::resizeSlot);
+}
+
 void CSLayout::actualRefresh()
 {
     // Clear layout
@@ -65,7 +98,7 @@ void CSLayout::clearLayout()
 {
     for (auto item : _listOldItems)
     {
-        if (_listItems.contains(item)) continue;
+        if (!item || _listItems.contains(item)) continue;
         item->setParent(nullptr);
         item->setHidden(true);
     }
@@ -83,7 +116,8 @@ void CSLayout::initMember()
 
 void CSLayout::initSignalSlot()
 {
-    connect(CSAppEvent::instance(), &CSAppEvent::resizeSignal, this, &CSLayout::resizeSlot);
+//    connect(CSAppEvent::instance(), &CSAppEvent::resizeSignal, this, &CSLayout::resizeSlot);
+    connect(_wgt, &cs::CSWidget::resizeSignal, this, &cs::CSLayout::resizeSlot);
 }
 
 void CSLayout::refreshOldItems()
@@ -105,7 +139,6 @@ void CSLayout::resizeSlot(QObject *s, QResizeEvent *e)
     if (!_listItems.contains(wgt)) return;
 
     refresh();
-    // To do
 }
 
 }

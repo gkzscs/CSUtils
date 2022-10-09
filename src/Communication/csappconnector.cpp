@@ -21,7 +21,11 @@ CSAppConnector::~CSAppConnector()
 
 void CSAppConnector::setServerName(const char *name)
 {
+#ifdef Q_OS_WIN
     strcpy_s(_serverName, strlen(name), name);
+#else
+    strcpy(_serverName, name);
+#endif
 
     // To do, whether need to check current server that is connected?
 }

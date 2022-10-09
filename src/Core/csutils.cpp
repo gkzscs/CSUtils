@@ -1,4 +1,4 @@
-#include "csutils.h"
+﻿#include "csutils.h"
 #include <QWidget>
 #include <QLabel>
 #include <QFile>
@@ -9,6 +9,10 @@
 #include <QSvgRenderer>
 #include <QFontDatabase>
 #include <QDebug>
+
+#ifdef Q_OS_WIN
+#include <Windows.h>
+#endif
 
 
 namespace cs
@@ -82,6 +86,8 @@ void CSUtils::enableStyleSheet(QWidget *wgt)
 
 void CSUtils::updateStyleSheet(QWidget *wgt)
 {
+    if (!wgt) return;
+
     // To make style sheet updates, must do these by hands
     wgt->style()->unpolish(wgt);
     wgt->style()->polish(wgt);
@@ -90,6 +96,8 @@ void CSUtils::updateStyleSheet(QWidget *wgt)
 /************************************ Layout *************************************/
 void CSUtils::clearLayout(QLayout *layout)
 {
+    if (!layout) return;
+
     QLayoutItem *item = nullptr;
     while ((item = layout->itemAt(0)) != nullptr)
     {
@@ -118,28 +126,39 @@ int CSUtils::calcProperValue(int oldValue, const QSize &originSize, const QSize 
 
 QSize CSUtils::calcProperValue(QSize oldSize, const QSize &originSize, const QSize &nowSize)
 {
-    QSize newSize = oldSize;
     double fw = static_cast<double>(nowSize.width()) / originSize.width();
     double fh = static_cast<double>(nowSize.height()) / originSize.height();
 
-    newSize.setWidth(static_cast<int>(oldSize.width() * fw));
-    newSize.setHeight(static_cast<int>(oldSize.height() * fh));
+    auto w = static_cast<int>(oldSize.width() * fw);
+    auto h = static_cast<int>(oldSize.height() * fh);
 
-    return newSize;
+    return QSize(w, h);
 }
 
 QRect CSUtils::calcProperValue(QRect oldRect, const QSize &originSize, const QSize &nowSize)
 {
-    QRect newRect = oldRect;
     double fw = static_cast<double>(nowSize.width()) / originSize.width();
     double fh = static_cast<double>(nowSize.height()) / originSize.height();
 
-    newRect.setX(static_cast<int>(oldRect.x() * fw));
-    newRect.setY(static_cast<int>(oldRect.y() * fh));
-    newRect.setWidth(static_cast<int>(oldRect.width() * fw));
-    newRect.setHeight(static_cast<int>(oldRect.height() * fh));
+    auto x = static_cast<int>(oldRect.x() * fw);
+    auto y = static_cast<int>(oldRect.y() * fh);
+    auto w = static_cast<int>(oldRect.width() * fw);
+    auto h = static_cast<int>(oldRect.height() * fh);
 
-    return newRect;
+    return QRect(x, y, w, h);
+}
+
+QMargins CSUtils::calcProperValue(QMargins oldMargins, const QSize &originSize, const QSize &nowSize)
+{
+    double fw = static_cast<double>(nowSize.width()) / originSize.width();
+    double fh = static_cast<double>(nowSize.height()) / originSize.height();
+
+    auto left = static_cast<int>(oldMargins.left() * fw);
+    auto right = static_cast<int>(oldMargins.right() * fw);
+    auto top = static_cast<int>(oldMargins.top() * fh);
+    auto bottom = static_cast<int>(oldMargins.bottom() * fh);
+
+    return QMargins(left, top, right, bottom);
 }
 
 /************************************ Image ****************************************/
@@ -224,12 +243,57 @@ QPixmap CSUtils::changeImageAlpha(const QPixmap &pixSource, int alpha)
     return QPixmap::fromImage(img);
 }
 
-/********************************** `Algorithm` ***********************************/
+/*********************************** Control *************************************/
+void CSUtils::top_window(QWidget *wnd)
+{
+    if (!wnd) return;
+
+#ifdef Q_OS_WIN
+    // 设置窗口置顶
+    ::SetWindowPos(HWND(wnd->winId()), HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
+    ::SetWindowPos(HWND(wnd->winId()), HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
+#else
+
+#endif
+}
+
+/********************************** Algorithm ***********************************/
 QString CSUtils::convert2Html(const QString &str)
 {
     QString html = "<p style='line-height: %1px'>" + str + "</p>";
     html = html.replace("\n", "<br>");
     return html;
+}
+
+/**
+ * @brief Convert `QColor` to string, which is constructed by red, gree, blue and alpha value
+ * @param color
+ * @return
+ */
+QString CSUtils::convertColor2RgbaStr(const QColor &color)
+{
+    QString str("rgba(%1, %2, %3, %4)");
+    str = str.arg(color.red()).arg(color.green()).arg(color.blue()).arg(color.alpha());
+
+    return str;
+}
+
+/**
+ * @brief Convert double to string, do not shown by science format
+ * @param d
+ * @param precision
+ * @return
+ */
+QString CSUtils::convertDouble2Str(double d, int maxDecimalCount)
+{
+    QString strSign = (d >= 0 ? "" : "-");
+    int partInt = static_cast<int>(d);
+    double partDecimal = abs(d - partInt);
+    auto strInt = QString::number(std::abs(partInt));
+    auto strDecimal = QString::number(partDecimal, 'g', maxDecimalCount);
+    strDecimal = strDecimal.right(strDecimal.length()-1);
+
+    return (strSign + strInt + strDecimal);
 }
 
 bool CSUtils::keyIsNumber(int key)
@@ -247,11 +311,15 @@ bool CSUtils::keyIsAlphabet(int key)
 
 void CSUtils::wait(int msec)
 {
-    auto endTime = QTime::currentTime().addMSecs(msec);
-    while (QTime::currentTime() < endTime)
-    {
-        QCoreApplication::processEvents(QEventLoop::AllEvents, 20);
-    }
+//    auto endTime = QTime::currentTime().addMSecs(msec);
+//    while (QTime::currentTime() < endTime)
+//    {
+//        QCoreApplication::processEvents(QEventLoop::AllEvents, 20);
+//    }
+
+    QEventLoop loop;
+    QTimer::singleShot(msec, &loop, SLOT(quit()));
+    loop.exec();
 }
 
 }   // End of namespace `cs`

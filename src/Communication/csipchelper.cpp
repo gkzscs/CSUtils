@@ -1,9 +1,11 @@
 #include "csipchelper.h"
+#include "loggingservice.h"
 #include <QLocalSocket>
 #include <QLocalServer>
 #include <QThread>
 #include <QProcess>
-
+#include <QJsonParseError>
+#include <QJsonDocument>
 
 namespace cs
 {
@@ -23,6 +25,32 @@ CSIpcHelper::~CSIpcHelper()
     _mapCmdStr.clear();
 }
 
+void CSIpcHelper::addEnvironmentVars()
+{
+    QFile file(environmetVarsConfigJson);
+    if (file.open(QFile::ReadOnly) == false)
+    {
+        SERVICE_LOG_ERROR("open file faild.");
+        return;
+    }
+
+    QJsonParseError jsonError;
+    QJsonDocument document = QJsonDocument::fromJson(QString(file.readAll()).toUtf8(), &jsonError);
+    if (jsonError.error != QJsonParseError::NoError)
+    {
+        SERVICE_LOG_ERROR("parse json failed.");
+        return;
+    }
+
+    QJsonArray pathArray = document.object().value("path").toArray();
+    for (int i = 0; i < pathArray.size(); i++)
+    {
+        _lstEnvironmentVars.push_back(pathArray[i].toString());
+    }
+
+    file.close();
+}
+
 void CSIpcHelper::bootApp(const QString &appUrl)
 {
     // Boot other applications in another seperated thread, to avoid block
@@ -30,15 +58,23 @@ void CSIpcHelper::bootApp(const QString &appUrl)
     QProcess process;
     process.moveToThread(thread);
 
+    QString addedEnvVars;
+    for (int i = 0; i < _lstEnvironmentVars.size(); i++)
+    {
+        addedEnvVars += _lstEnvironmentVars.at(i) + ";";
+    }
+
+    QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
+    env.insert("PATH", addedEnvVars + env.value("PATH"));
+    process.setProcessEnvironment(env);
+
     // Start the process
     bool res = process.startDetached(appUrl);
     if (!res)
     {
-        qDebug() << "Failed to start process:" << appUrl;
+        SERVICE_LOG_ERROR("Failed to start process: " + appUrl);
     }
 
-//    QTime dieTime = QTime::currentTime().addSecs(2);
-//    while (QTime::currentTime() < dieTime) QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
     thread->quit();
 }
 
@@ -47,6 +83,16 @@ void CSIpcHelper::sendCommand(QLocalSocket *sock, const QString &appName, Comman
     // Get the information to send
     QString info("%1:%2");
     info = info.arg(appName).arg(_mapCmdStr.value(cmd));
+
+    // Write to local socket
+    sock->write(info.toUtf8());
+    sock->flush();
+}
+
+void CSIpcHelper::sendCommand(QLocalSocket *sock, const QString &appName)
+{
+    // Get the information to send
+    QString info(appName);
 
     // Write to local socket
     sock->write(info.toUtf8());
@@ -91,6 +137,7 @@ CSIpcHelper::CSIpcHelper()
     : QObject(nullptr)
 {
     initMember();
+    addEnvironmentVars();
 }
 
 }   // End of `cs`
